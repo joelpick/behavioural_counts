@@ -19,7 +19,7 @@ propExpVar <- function(mean,cv){
 
 sym_dat <- na.omit(dat2[,c("new_mean","prop_w0","N_analysis","direct")])
 
-sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Number of Analyses"){
 	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))
 	y_coords <- y - (2:(length(legend)+1))^2*yspace
 	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)
