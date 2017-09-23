@@ -1,0 +1,1484 @@
+deg_shared2$Identifier==deg_shared1$Identifier
+shared_rows <- ((deg_shared1$log2.Ratio>0) + (deg_shared2$log2.Ratio>0))!=1
+deg_shared <- cbind(deg_shared1[shared_rows ,c("Identifier","gene_name","log2.Ratio","pValue")],deg_shared2[shared_rows ,c("log2.Ratio","pValue")])
+nrow(deg_shared)
+names(deg_shared)[3:6] <- paste0(names(deg_shared)[3:6],c(1,1,2,2))
+deg_shared <- deg_shared[order(deg_shared$log2.Ratio1),]
+table((deg_shared1$log2.Ratio>0) + (deg_shared2$log2.Ratio>0))
+deg_shared$gene_name
+deg_shared
+table((deg_shared1$log2.Ratio>0) + (deg_shared2$log2.Ratio>0))
+shared_rows
+deg_shared$pattern <- ifelse(deg_shared$log2.Ratio1>0, "H>L", "L>H")
+deg_shared$pattern
+deg_shared
+table(deg_shared$gene_name)
+dd1 <- read.csv("~/Dropbox/1_quail/5_RNA_seq/R/overall_GE/Table_S1_Galgal4_H1-over-L1.csv", stringsAsFactors=FASLE)
+dd1 <- read.csv("~/Dropbox/1_quail/5_RNA_seq/R/overall_GE/Table_S1_Galgal4_H1-over-L1.csv", stringsAsFactors=FALSE)
+dd2 <- read.csv("~/Dropbox/1_quail/5_RNA_seq/R/overall_GE/Table_S2_Galgal4_H2-over-L2.csv", stringsAsFactors=FALSE)
+deg1 <- subset(dd1, isPresent & pValue<0.05)#
+deg2 <- subset(dd2, isPresent & pValue<0.05)#
+#
+deg_shared1 <- deg1[deg1$Identifier %in% deg2$Identifier,]#
+deg_shared1 <- deg_shared1[order(deg_shared1$Identifier),]#
+nrow(deg_shared1)#
+#
+deg_shared2 <- deg2[deg2$Identifier %in% deg1$Identifier,]#
+deg_shared2 <- deg_shared2[order(deg_shared2$Identifier),]#
+nrow(deg_shared2)#
+#
+deg_shared2$Identifier==deg_shared1$Identifier#
+#
+shared_rows <- ((deg_shared1$log2.Ratio>0) + (deg_shared2$log2.Ratio>0))!=1#
+#
+deg_shared <- cbind(deg_shared1[shared_rows ,c("Identifier","gene_name","log2.Ratio","pValue")],deg_shared2[shared_rows ,c("log2.Ratio","pValue")])#
+nrow(deg_shared)#
+names(deg_shared)[3:6] <- paste0(names(deg_shared)[3:6],c(1,1,2,2))#
+deg_shared <- deg_shared[order(deg_shared$log2.Ratio1),]#
+deg_shared$pattern <- ifelse(deg_shared$log2.Ratio1>0, "H>L", "L>H")#
+#
+table((deg_shared1$log2.Ratio>0) + (deg_shared2$log2.Ratio>0))
+deg_shared$gene_name
+table(deg_shared$gene_name)
+length (table(deg_shared$gene_name))
+length(table(deg_shared$gene_name))
+deg_shared
+deg_shared1 <- deg1[deg1$Identifier %in% deg2$Identifier,]#
+deg_shared1 <- deg_shared1[order(deg_shared1$Identifier),]#
+deg_shared1$pattern <- ifelse(deg_shared1$log2.Ratio1>0, "H>L", "L>H")#
+nrow(deg_shared1)#
+#
+deg_shared2 <- deg2[deg2$Identifier %in% deg1$Identifier,]#
+deg_shared2 <- deg_shared2[order(deg_shared2$Identifier),]#
+nrow(deg_shared2)#
+#
+deg_shared2$Identifier==deg_shared1$Identifier#
+#
+shared_rows <- ((deg_shared1$log2.Ratio>0) + (deg_shared2$log2.Ratio>0))!=1#
+deg_shared <- cbind(deg_shared1[shared_rows ,c("gene_name","pattern","log2.Ratio","pValue")],deg_shared2[shared_rows ,c("log2.Ratio","pValue","Identifier")])#
+nrow(deg_shared)
+deg_shared1$pattern <- ifelse(deg_shared1$log2.Ratio>0, "H>L", "L>H")
+shared_rows <- ((deg_shared1$log2.Ratio>0) + (deg_shared2$log2.Ratio>0))!=1
+deg_shared <- cbind(deg_shared1[shared_rows ,c("gene_name","pattern","log2.Ratio","pValue")],deg_shared2[shared_rows ,c("log2.Ratio","pValue","Identifier")])
+nrow(deg_shared)
+names(deg_shared)[3:6] <- paste0(names(deg_shared)[3:6],c(1,1,2,2))
+deg_shared <- deg_shared[order(deg_shared$log2.Ratio1),]
+deg_shared
+table((deg_shared1$log2.Ratio>0) + (deg_shared2$log2.Ratio>0))
+write.csv(deg_shared, file="~/Dropbox/1_quail/5_RNA_seq/R/overall_GE/DEG_table.csv", row.names=FALSE)
+deg_shared[,3:6]
+round(deg_shared[,3:6],3)
+glmLRT
+?glmLRT
+d <-  DGEList(dd[isPresent,grep("normalized.count", names(dd))])
+d <-  DGEList(dd[dd$isPresent,grep("normalized.count", names(dd))])
+fit <- glmFit(d, design, dispersion=dispersion.true)
+results <- glmLRT(fit, coef=2)
+head(results$table)
+results <- glmLRT(fit)
+head(results$table)
+names(dd)
+design <- matrix(c(rep(1,12),ifelse(substr(names(dd)[grep("FPKM", names(dd))],1,1)=="H",1,0)),ncol=2)
+design
+d <-  DGEList(dd[dd$isPresent,grep("FPKM", names(dd))])
+d
+fit <- glmFit(d, design, dispersion=dispersion.true)
+results <- glmLRT(fit)
+head(results$table)
+head(dd)
+d <- calcNormFactors(d)
+d <- calcNormFactors(d, methid="TMM")
+fit <- glmFit(d, design, dispersion=dispersion.true)
+results <- glmLRT(fit)
+head(results$table)
+d <- calcNormFactors(d, method="TMM")
+fit <- glmFit(d, design, dispersion=dispersion.true)
+results <- glmLRT(fit)
+fit <- glmFit(d, design)
+d <-  DGEList(dd[dd$isPresent,grep("FPKM", names(dd))])
+d
+d <- calcNormFactors(d, method="TMM")
+fit <- glmFit(d, design, dispersion=NULL)
+d
+names(dd)
+deg_shared[,3:6] <- round(deg_shared[,3:6],3)
+write.csv(deg_shared, file="~/Dropbox/1_quail/5_RNA_seq/R/overall_GE/DEG_table.csv", row.names=FALSE)
+rm(list=ls())#
+#
+library(scales)#
+library("nadiv")#
+library("rstan")#
+#
+##These options respectively allow you to automatically save a bare version of a compiled Stan program to the hard disk so that it does not need to be recompiled and to execute multiple Markov chains in parallel.#
+rstan_options(auto_write = TRUE)#
+options(mc.cores = parallel::detectCores())#
+#
+## source('~/Dropbox/R/joelfunctions.r')#
+#
+setwd("~/Dropbox/0_postdoc/1_sparrows/step_by_step_analysis")#
+#
+dat <- read.csv("all_sparrow_interval_data_20170327.csv")#
+#
+# apply(dat[, c("Sex", "OffspringNest", "ChickAge", "HabitatType", "Age", "BroodNumber", "RelTimeMins", "DayAfter0401")], 2, function(x) sum(is.na(x)) )#
+dat[is.na(dat$RelTimeMins),] ## give them the mean value??#
+dat[is.na(dat$RelTimeMins),"RelTimeMins"] <- mean(dat$RelTimeMins, na.rm=TRUE)#
+#
+dat$Age2 <- scale(dat$Age)^2#
+dat$RelTimeMins2 <- scale(dat$RelTimeMins)^2#
+dat$DayAfter0401_2 <- scale(dat$DayAfter0401)^2#
+#
+head(dat)#
+nrow(dat)#
+## habitat type == 0 - built up#
+## habitat type == 1 - woodland#
+#
+## sex == 0 - male#
+## sex == 1 - female#
+## relatedness matrix#
+#install.packages("nadiv")#
+#
+new_ped <- read.csv("new_ped.csv")#
+#
+ped_all <- prunePed(new_ped, unique(dat$ID))#
+#
+phenRows <- which(ped_all$id %in% unique(dat$ID))#
+#
+relMatAll <- makeA(ped_all)#
+relMatRed <- relMatAll[phenRows,phenRows]#
+#
+phenRowsOrder <- order(as.numeric(ped_all$id[phenRows]))#
+#
+relMatRedOrder <- relMatRed[phenRowsOrder,phenRowsOrder]#
+#
+relMatCD <- t(as.matrix(chol(relMatRedOrder)))
+setwd("~/Dropbox/0_postdoc/1_sparrows/step_by_step_analysis")
+dat <- read.csv("all_sparrow_interval_data_20170327.csv")
+dat <- read.csv("/Dropbox/0_postdoc/1_sparrows/step_by_step_analysis/all_sparrow_interval_data_20170822.csv")
+dat <- read.csv("all_sparrow_interval_data_20170822.csv")
+dat[is.na(dat$RelTimeMins),] ## give them the mean value??#
+dat[is.na(dat$RelTimeMins),"RelTimeMins"] <- mean(dat$RelTimeMins, na.rm=TRUE)
+dat$Age2 <- scale(dat$Age)^2#
+dat$RelTimeMins2 <- scale(dat$RelTimeMins)^2#
+dat$DayAfter0401_2 <- scale(dat$DayAfter0401)^2
+dat <- read.csv("all_sparrow_interval_data_20170822.csv")#
+#
+# apply(dat[, c("Sex", "OffspringNest", "ChickAge", "HabitatType", "Age", "BroodNumber", "RelTimeMins", "DayAfter0401")], 2, function(x) sum(is.na(x)) )#
+dat[is.na(dat$RelTimeMins),] ## give them the mean value??#
+dat[is.na(dat$RelTimeMins),"RelTimeMins"] <- mean(dat$RelTimeMins, na.rm=TRUE)#
+#
+dat$Age2 <- scale(dat$Age)^2#
+dat$RelTimeMins2 <- scale(dat$RelTimeMins)^2#
+dat$DayAfter0401_2 <- scale(dat$DayAfter0401)^2
+head(dat)
+dat$HatchDayAfter0401_2 <- scale(dat$DayAfter0401)^2
+dat$Age2 <- scale(dat$Age)^2#
+dat$RelTimeMins2 <- scale(dat$RelTimeMins)^2#
+dat$HatchDayAfter0401_2 <- scale(dat$HatchDayAfter0401)^2
+new_ped <- read.csv("new_ped.csv")#
+#
+ped_all <- prunePed(new_ped, unique(dat$ID))#
+#
+phenRows <- which(ped_all$id %in% unique(dat$ID))#
+#
+relMatAll <- makeA(ped_all)#
+relMatRed <- relMatAll[phenRows,phenRows]#
+#
+phenRowsOrder <- order(as.numeric(ped_all$id[phenRows]))#
+#
+relMatRedOrder <- relMatRed[phenRowsOrder,phenRowsOrder]#
+#
+relMatCD <- t(as.matrix(chol(relMatRedOrder)))
+preds_intercept <- model.matrix( ~ 1, dat)
+preds <- model.matrix( ~ Sex + HabitatType + scale(ChickAge)+ scale(ChickAge):Sex + scale(OffspringNest) + scale(Age) + Age2 + scale(RelTimeMins) + RelTimeMins2 + scale(HatchDayAfter0401) + HatchDayAfter0401_2, dat)
+head(preds)#
+tail(preds)#
+stan_dat <- list(	N = dat$n, #
+					J = nrow(dat), #
+					sum_log_x = dat$sum_log_y, #
+					sum_x = dat$sum_y, #
+					left = dat$timeLeft,#
+					ind = dat$id, #
+					Nind = length(unique(dat$id)), #
+					nest = dat$nest, #
+					Nnest = length(unique(dat$nest)), #
+					brood = dat$brood, #
+					Nbrood = length(unique(dat$brood)), #
+#					dvd = dat$dvd, #
+#					Ndvd = length(unique(dat$dvd)), #
+					year = dat$year, #
+					Nyear = length(unique(dat$year)), #
+					preds = preds_intercept, #preds,#
+					Npred = ncol(preds_intercept), #ncol(preds),#
+					pedigree = relMatCD#
+				)
+m_stan <- stan(file = "sparrow_alpha_beta_bivariate.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+1950 - 675.11
+36*50
+p_names <- rownames(summary(m_stan)$summary)
+p_names2 <- c(p_names[grepl("sigma_e\\[",p_names) | grepl("Betas",p_names)], "lp__")
+summary(m_stan)$summary[p_names2,]
+summary(m_stan_QR)$summary[p_names2,]
+stan_dat <- list(	N = dat$n, #
+					J = nrow(dat), #
+					sum_log_x = dat$sum_log_y, #
+					sum_x = dat$sum_y, #
+					left = dat$timeLeft,#
+					ind = dat$id, #
+					Nind = length(unique(dat$id)), #
+					nest = dat$nest, #
+					Nnest = length(unique(dat$nest)), #
+					brood = dat$brood, #
+					Nbrood = length(unique(dat$brood)), #
+#					dvd = dat$dvd, #
+#					Ndvd = length(unique(dat$dvd)), #
+					year = dat$year, #
+					Nyear = length(unique(dat$year)), #
+					preds = preds_intercept, #preds,#
+					Npred = ncol(preds), #ncol(preds),#
+					pedigree = relMatCD#
+				)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+stan_dat <- list(	N = dat$n, #
+					J = nrow(dat), #
+					sum_log_x = dat$sum_log_y, #
+					sum_x = dat$sum_y, #
+					left = dat$timeLeft,#
+					ind = dat$id, #
+					Nind = length(unique(dat$id)), #
+					nest = dat$nest, #
+					Nnest = length(unique(dat$nest)), #
+					brood = dat$brood, #
+					Nbrood = length(unique(dat$brood)), #
+#					dvd = dat$dvd, #
+#					Ndvd = length(unique(dat$dvd)), #
+					year = dat$year, #
+					Nyear = length(unique(dat$year)), #
+					preds = preds, #preds,#
+					Npred = ncol(preds), #ncol(preds),#
+					pedigree = relMatCD#
+				)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan <- stan(file = "sparrow_alpha_beta_bivariate.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+dat$timeLeft
+x <- rnorm(100)
+y <- rnomr(100)
+y <- rnorm(100)
+gl(50,2)
+z <- gl(1,250)
+z
+z <- gl(2,50)
+z
+lm(yz+x:z)
+lm(y~z+x:z)
+lm(y~x+z+x:z)
+summary(lm(y~x+z+x:z))
+summary(lm(y~x:z))
+x_bad_year <- rnorm(n=100,mean=0,sd=1)
+residual_error <- rnorm(n=100,mean=0,sd=1)
+food_bad_year <- rnorm(n=100,mean=0,sd=1)#
+food_good_year <- max(food_bad_year)#
+residual_error <- rnorm(n=100,mean=0,sd=1)
+egg_size_good_year <- rnorm(n=100,mean=food_good_year,sd=1)
+egg_size_good_year
+egg_size_bad_year <- rnorm(n=100,mean=food_bad_year,sd=1)
+food_good_year
+boxplot(egg_size_good_year,egg_size_bad_year)
+sd(egg_size_good_year,egg_size_bad_year)
+c(sd(egg_size_good_year),sd(egg_size_bad_year))
+boxplot(egg_size_good_year,egg_size_bad_year, names=c("good year","bad year"))
+food_bad_year <- rnorm(n=100,mean=0,sd=1)#
+food_good_year <- max(food_bad_year)#
+#
+egg_size_good_year <- rnorm(n=100,mean=food_good_year,sd=1)#
+egg_size_bad_year <- rnorm(n=100,mean=food_bad_year,sd=1)#
+#
+boxplot(egg_size_good_year,egg_size_bad_year, names=c("good year","bad year"))#
+c(sd(egg_size_good_year),sd(egg_size_bad_year))
+food_bad_year <- rnorm(n=100,mean=0,sd=1)#
+food_good_year <- max(food_bad_year)#
+#
+egg_size_good_year <- rnorm(n=100,mean=food_good_year,sd=1)#
+egg_size_bad_year <- rnorm(n=100,mean=food_bad_year,sd=1)#
+#
+boxplot(egg_size_good_year,egg_size_bad_year, names=c("good year","bad year"))#
+c(sd(egg_size_good_year),sd(egg_size_bad_year))
+food_bad_year <- rnorm(n=1000,mean=0,sd=1)#
+food_good_year <- max(food_bad_year)#
+#
+egg_size_good_year <- rnorm(n=1000,mean=food_good_year,sd=1)#
+egg_size_bad_year <- rnorm(n=1000,mean=food_bad_year,sd=1)#
+#
+boxplot(egg_size_good_year,egg_size_bad_year, names=c("good year","bad year"))#
+c(sd(egg_size_good_year),sd(egg_size_bad_year))
+rm(list=ls())#
+#
+library(scales)#
+library("nadiv")#
+library("rstan")#
+#
+##These options respectively allow you to automatically save a bare version of a compiled Stan program to the hard disk so that it does not need to be recompiled and to execute multiple Markov chains in parallel.#
+rstan_options(auto_write = TRUE)#
+options(mc.cores = parallel::detectCores())#
+#
+## source('~/Dropbox/R/joelfunctions.r')#
+#
+setwd("~/Dropbox/0_postdoc/1_sparrows/step_by_step_analysis")#
+#
+dat <- read.csv("all_sparrow_interval_data_20170822.csv")#
+#
+# apply(dat[, c("Sex", "OffspringNest", "ChickAge", "HabitatType", "Age", "BroodNumber", "RelTimeMins", "DayAfter0401")], 2, function(x) sum(is.na(x)) )#
+dat[is.na(dat$RelTimeMins),] ## give them the mean value??#
+dat[is.na(dat$RelTimeMins),"RelTimeMins"] <- mean(dat$RelTimeMins, na.rm=TRUE)#
+#
+dat$Age2 <- scale(dat$Age)^2#
+dat$RelTimeMins2 <- scale(dat$RelTimeMins)^2#
+dat$HatchDayAfter0401_2 <- scale(dat$HatchDayAfter0401)^2#
+#
+head(dat)#
+nrow(dat)#
+## habitat type == 0 - built up#
+## habitat type == 1 - woodland#
+#
+## sex == 0 - male#
+## sex == 1 - female#
+## relatedness matrix#
+#install.packages("nadiv")#
+#
+new_ped <- read.csv("new_ped.csv")#
+#
+ped_all <- prunePed(new_ped, unique(dat$ID))#
+#
+phenRows <- which(ped_all$id %in% unique(dat$ID))#
+#
+relMatAll <- makeA(ped_all)#
+relMatRed <- relMatAll[phenRows,phenRows]#
+#
+phenRowsOrder <- order(as.numeric(ped_all$id[phenRows]))#
+#
+relMatRedOrder <- relMatRed[phenRowsOrder,phenRowsOrder]#
+#
+relMatCD <- t(as.matrix(chol(relMatRedOrder)))#
+#
+#####
+preds_intercept <- model.matrix( ~ 1, dat)#
+preds <- model.matrix( ~ Sex + HabitatType + scale(ChickAge)+ scale(ChickAge):Sex + scale(OffspringNest) + scale(Age) + Age2 + scale(RelTimeMins) + RelTimeMins2 + scale(HatchDayAfter0401) + HatchDayAfter0401_2, dat)#
+head(preds)#
+tail(preds)
+stan_dat <- list(	N = dat$n, #
+					J = nrow(dat), #
+					sum_log_x = dat$sum_log_y, #
+					sum_x = dat$sum_y, #
+					left = dat$timeLeft,#
+					ind = dat$id, #
+					Nind = length(unique(dat$id)), #
+					nest = dat$nest, #
+					Nnest = length(unique(dat$nest)), #
+					brood = dat$brood, #
+					Nbrood = length(unique(dat$brood)), #
+#					dvd = dat$dvd, #
+#					Ndvd = length(unique(dat$dvd)), #
+					year = dat$year, #
+					Nyear = length(unique(dat$year)), #
+					preds = preds, #preds,#
+					Npred = ncol(preds), #ncol(preds),#
+					pedigree = relMatCD#
+				)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan_QR <- stan(file = "sparrow_alpha_beta_bivariate_QR.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+m_stan <- stan(file = "sparrow_alpha_beta_bivariate.stan", data = stan_dat, chains=1, control=list(adapt_delta=0.9, max_treedepth=10), iter = 2000, warmup = 1000)
+p_names <- rownames(summary(m_stan)$summary)#
+p_names2 <- c(p_names[grepl("sigma_e\\[",p_names) | grepl("Betas",p_names)], "lp__")#
+#
+summary(m_stan)$summary[p_names2,]#
+#
+summary(m_stan_QR)$summary[p_names2,]
+cbind(summary(m_stan)$summary[p_names2,1], summary(m_stan_QR)$summary[p_names2,1])
+summary(m_stan)$summary[p_names2,
+]
+cbind(summary(m_stan)$summary[p_names2,"n_eff"], summary(m_stan_QR)$summary[p_names2,"n_eff"])
+n <- 200#
+mean <- 20#
+sd <- 8#
+exp1 <- rep(mean,n)#
+obs1 <- rpois(n, exp1)#
+exp2 <- rlnorm(n, meanlog = log(mean), sdlog = sqrt(log(1+sd/mean^2)))#
+obs2 <- rpois(n, exp2)#
+Xmax <- max(c(obs1,obs2))#
+#
+exp1Counts = hist(exp1, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts#
+obs1Counts = hist(obs1, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts#
+obs1Counts_tab = table(obs1)#
+exp2Counts = hist(exp2, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts#
+obs2Counts = hist(obs2, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts#
+obs2Counts_tab = table(obs2)
+xSpace <- ySpace <- 5
+layout(matrix(c(1:12), ncol=3, byrow=FALSE),heights=c(1,2,4,2)/10, widths=c(2,4,4)/10)#
+#
+par(mar=c(0,0,0,0), cex.lab=1.5)#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+text(0.5,0.05, "Expected", cex=3)#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+text(0.5,0.95, "Observed", cex=3)#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+text(0.5,0.5, "A) No variation in \n expected PR", cex=2.5)#
+#
+par(mar=c(0,xSpace,0,1), las=2)#
+barplot(exp1Counts, xlim=c(0,Xmax)+0.5, ylim=c(0,n), space=0, ylab="Frequency")#
+#
+par(mar=c(0,xSpace,0,1))#
+plot(rep(2,n)~exp1, xlim=c(0,Xmax), pch=19, cex=0.75, ylim=c(0.9,2.1), yaxt="n", xaxt="n", bty="n", ylab="")#
+#axis(2,c(1,2),c("Observed","Expected"), tick=FALSE, cex.axis=2)#
+points(rep(1,n)~obs1, pch=19, cex=0.5)#
+arrows(exp1,2,obs1,1, length=0.1, col=alpha("black",0.3))#
+#
+par(mar=c(ySpace,xSpace,0,1))#
+# barplot(obs1Counts,  xlim=c(0,Xmax)+0.5, ylim=rev(c(0,n)), space=0,xlab="Provisioning Rate")#
+plot(obs1Counts_tab,  xlim=c(0,Xmax), ylim=rev(c(0,n/4)), bty="n", las=1, xaxt="n", ylab="Frequency",xlab="Provisioning Rate")#
+axis(1,0:Xmax, las=1)#
+par(mar=c(0,0,0,0))#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+text(0.5,0.5, "B) Variation in \n expected PR", cex=2.5)#
+#
+par(mar=c(0,xSpace,0,1), las=2)#
+barplot(exp2Counts, xlim=c(0,Xmax)+0.5, ylim=c(0,n), space=0, ylab="Frequency")#
+#
+par(mar=c(0,xSpace,0,1))#
+plot(rep(2,n)~exp2, xlim=c(0,Xmax), pch=19, cex=0.75, ylim=c(0.9,2.1), yaxt="n", xaxt="n", bty="n", ylab="")#
+#axis(2,c(1,2),c("Observed","Expected"), tick=FALSE, cex.axis=2)#
+points(rep(1,n)~obs2, pch=19, cex=0.5)#
+arrows(exp2,2,obs2,1, length=0.1, col=alpha("black",0.3))#
+#
+par(mar=c(ySpace,xSpace,0,1))#
+# barplot(obs2Counts,  xlim=c(0,Xmax)+0.5, ylim=rev(c(0,n)), space=0,xlab="Provisioning Rate")#
+plot(obs2Counts_tab,  xlim=c(0,Xmax), ylim=rev(c(0,n/4)), bty="n", las=1, xaxt="n", ylab="Frequency",xlab="Provisioning Rate")#
+axis(1,0:Xmax, las=1)
+load('~/Dropbox/0_postdoc/8_PR repeat/shared/lendvai/1600302/S2_File.RDATA')#
+head(visitdata)#
+#
+#function to collect data.frames/matrices with different column names, and to specify those names#
+rbind_notAnnoying <- function(..., names=NULL){#
+	x <- list(...)#
+	y <- lapply(x, function(y){#
+    names(y) <- if(is.null(names)) names(x[[1]]) else names#
+    return(y)  #
+  } )#
+  do.call(rbind,y)#
+}#
+#
+# function to determine if number is whole#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#groups males and females by time period#
+visdat <- rbind_notAnnoying(visitdata[,1:60],visitdata[,62:121], names= paste(rep(7:21,each=4), rep(1:4,15), sep="_"))#
+head(visdat)
+visdat2 <- as.matrix(visdat[,15:55])
+colnames(visdat2)
+dim(visdat2)
+plot(apply(visdat2,2,function(x) sum(is.na(x))), ylab="number fo NAs")
+plot(apply(visdat2,2,function(x) sum(x==0,na.rm=TRUE)), ylab="number fo zeros")
+par(mfrow=c(2,2))#
+plot(apply(visdat,2,function(x) sum(is.na(x)))~ seq(7, 21.75, 0.25), ylab="number fo NAs", xlab="Time of day (hour)"); abline(v=7+0.25*13.5)#
+plot(apply(visdat,2,function(x) sum(x==0,na.rm=TRUE))~ seq(7, 21.75, 0.25), ylab="number fo zeros", xlab="Time of day (hour)"); abline(v=7+0.25*54.5)#
+plot(apply(visdat,2,function(x) mean(x,na.rm=TRUE)), ylab="mean number of visits")#
+# take off last 5 15 min slots, as they have high number of 0s - i.e. everything has stopped provisioning!! #
+# take off first 15 as lots of NAs - want to maximise sample size
+timeblock_data <- lapply(1:ncol(visdat2), function(timeblocks){#
+	data <- visdat2#
+	n_cols <- max((1:ncol(data))[is.wholenumber(1:ncol(data)/timeblocks)]) ## work out number of columns to use; what is the maximum number that is divisible by that timeblock#
+	data <- data[,(ncol(data)-n_cols + 1):ncol(data)]	## preferentially miss out first coloumsn where there is missing data#
+	mat_timeblocks <- matrix(1:ncol(data),nrow=timeblocks)	## which columns to add together in the new time blocks#
+	dat_timeblocks <- sapply(1:ncol(mat_timeblocks),function(x) apply(as.matrix(data[,mat_timeblocks[,x]]),1,sum) )	## adds together number of visits in each new time block, each column is now a new timeblock#
+	dat_out <- do.call(rbind, lapply(1:ncol(dat_timeblocks), function(x) data.frame(id=1:nrow(dat_timeblocks), time_period=x, visits=dat_timeblocks[,x]))) ## stack new timeblocks, to give 'long' dataframe for analysis#
+	return(dat_out)#
+})
+CV_dat <- as.data.frame(t(sapply(1:41, function(x) {#
+	data <- timeblock_data[[x]]#
+	c(time=x*15,mean=mean(data$visits, na.rm=TRUE),sd=sd(data$visits, na.rm=TRUE), n=length(!is.na(data$visits)))#
+})))#
+CV_dat$cv <- with(CV_dat, sd/mean)#
+CV_dat
+data_for_ICC <- which(sapply(timeblock_data, function(x) max(x$time_period))>1)
+library(lme4)#
+library(MCMCglmm)#
+ICC_dat <- as.data.frame(t(sapply(data_for_ICC, function(x) {#
+	data <- timeblock_data[[x]]#
+	mod <- lmer(visits~ 1+ (1|id), data)#
+	id_var <- as.numeric(summary(mod)$var$id)#
+	resid_var <- as.numeric(summary(mod)$sigma)^2	#
+	ICC <- id_var/(id_var+resid_var)#
+	data$obs <- 1:nrow(data)		## observation level random effect#
+	mod_Pois <- glmer(visits~ 1 + (1|id)+ (1|obs), data, family="poisson")#
+	id_var_pois <- as.numeric(summary(mod_Pois)$var$id)#
+	resid_var_pois <- as.numeric(summary(mod_Pois)$var$obs)	#
+	ICC_pois <- id_var_pois/(id_var_pois+resid_var_pois)#
+	return(c(time=x*15, ICC=ICC, ICC_pois=ICC_pois, mean=mean(data$visits,na.rm=TRUE)))#
+	mod_Pois <- MCMCglmm(visits~ 1, random= ~id, data=data, family="poisson")#
+	ICC_pois_MCMC <- mod_Pois$VCV[,"id"]/(apply(mod_Pois$VCV,1,sum))#
+	c(time=x*15, ICC=ICC, ICC_pois=posterior.mode(ICC_pois_MCMC), CRI95=HPDinterval(ICC_pois_MCMC, prob = 0.95))#
+#
+})))
+ICC_dat <- as.data.frame(t(sapply(data_for_ICC, function(x) {#
+	data <- timeblock_data[[x]]#
+	mod <- lmer(visits~ 1+ (1|id), data)#
+	id_var <- as.numeric(summary(mod)$var$id)#
+	resid_var <- as.numeric(summary(mod)$sigma)^2	#
+	ICC <- id_var/(id_var+resid_var)#
+	return(c(time=x*15, ICC=ICC, mean=mean(data$visits,na.rm=TRUE)))#
+})))
+ICC_dat
+write.csv(CV_dat, file="~/Dropbox/0_postdoc/8_PR repeat/shared/online materials/lendvai_data/lendvai_CV.csv")
+write.csv(ICC_dat, file="~/Dropbox/0_postdoc/8_PR repeat/shared/online materials/lendvai_data/lendvai_ICC.csv")
+ICC_dat <- merge(ICC_dat,CV_dat)
+ICC_dat
+exp_cv <- with(CV_dat, sqrt(sd^2-mean)/mean)#
+#real_cv <- 0.41#
+est_cv <- coef(nls(cv ~ sqrt((a*mean)^2 + mean)/mean, data=CV_dat, start=c(a=0.4)))#
+sim_means <- 1:100#
+pois_cv <- sqrt((sim_means*est_cv)^2 + sim_means)/sim_means#
+plot(cv~mean, obs, pch=19, ylim=c(0,1));lines(pois_cv~sim_means, col="red");abline(h=est_cv, lty=2)
+plot(cv~mean, ICC_dat, pch=19, ylim=c(0,1));lines(pois_cv~sim_means, col="red");abline(h=est_cv, lty=2)
+plot(ICC~mean,ICC_dat, ylim=c(0,1), pch=19)
+points(ICC_pois.var1~mean,ICC_dat, pch=19, col="red")
+with(ICC_dat,arrows(mean,CRI951,mean,CRI952, code=3, angle=90, length=0.1))
+with(ICC_dat,arrows(mean,CRI95_pois1,mean,CRI95_pois2, code=3, angle=90, length=0.1))
+means <- 1:50#
+exVar <- (means*est_cv)^2 #
+obsVar <- means+exVar#
+gaus_rep <- coef(nls ( ICC.var1 ~ a*mean*est_cv^2 / (1+mean*est_cv^2), data=ICC_dat, start=list(a=0.5) ))#
+lines((exVar/obsVar)*gaus_rep~means, lty=2)	#
+abline(h=gaus_rep)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")
+load('lendvai_data/S2_File.RDATA')
+head(visitdata)
+write.csv(CV_dat, file="lendvai_data/lendvai_CV.csv")
+write.csv(CV_dat, file="lendvai_data/lendvai_CV.csv", row.names=FALSE)
+write.csv(ICC_dat, file="lendvai_data/lendvai_ICC.csv", row.names=FALSE)
+ICC_dat <- as.data.frame(t(sapply(data_for_ICC, function(x) {#
+	data <- timeblock_data[[x]]#
+	mod <- lmer(visits~ 1+ (1|id), data)#
+	id_var <- as.numeric(summary(mod)$var$id)#
+	resid_var <- as.numeric(summary(mod)$sigma)^2	#
+	ICC <- id_var/(id_var+resid_var)#
+	return(c(time=x*15, ICC=ICC, mean=mean(data$visits,na.rm=TRUE)))#
+})))
+write.csv(ICC_dat, file="lendvai_data/lendvai_ICC.csv", row.names=FALSE)
+ICC_dat
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")#
+#
+library(latex2exp) # enable to use LaTex in R expression#
+means <- 1:100				# range of mean visits over which which to plot#
+cvs <- seq(0.1,0.5,0.1)#
+#
+CV_dat <- read.csv(file="lendvai_data/lendvai_CV.csv")#
+est_cv <- coef(nls(cv ~ sqrt((a*mean)^2 + mean)/mean, data=CV_dat, start=c(a=0.4)))#
+pois_cv <- sqrt((means*est_cv)^2 + means)/means#
+#
+ICC_dat <- read.csv(file="lendvai_data/lendvai_ICC.csv")#
+gaus_rep <- coef(nls ( ICC ~ a*mean*est_cv^2 / (1+mean*est_cv^2), data=ICC_dat, start=list(a=0.5) ))
+par(mfrow=c(2,2), mar=c(3,6,3,1), cex.lab=1.75, cex.axis=1.2,oma = c(3, 0, 0, 0))#
+######------------------------------------------------------------#
+plot(NA, ylim=c(0,1), xlim=c(0,100), ylab="Observed CV", xlab="")#
+lapply(cvs, function(y) {#
+	lines( (sqrt((means*y)^2 + means)/means)~means, col=y*10+1, lwd=2) #
+	lines(rep(y,each=length(means))~means, col=y*10+1, lty=2)#
+	})#
+legend("topright", c("Observed", "Expected"), lty=c(1,2), lwd=c(2,1), cex=1.2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)#
+######------------------------------------------------------------#
+plot(cv~mean, CV_dat, pch=19, ylim=c(0,1), xlab="", ylab="Observed CV")#
+lines(pois_cv~means, col="red")#
+abline(h=est_cv, lty=2)#
+text(50,0.95, paste("Estimated expected CV =", round(est_cv,3)), cex=1.5)#
+mtext('B',side=3, line=0.5, cex=1.5, adj=0)#
+######------------------------------------------------------------#
+plot(NA, ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlim=c(0,100), xlab="")#
+#
+# plot line for each CV on expected scale #
+lapply(cvs, function(x) {			#
+	exVar <- (means*x)^2 		# Intrinsic variance in provisioning rate#
+	obsVar <- means+exVar			# Observed variance in provisioning rate #
+									# = intrinsic variance + poisson variance (mean)#
+#
+	lines(exVar/obsVar~means, lty=x*10+1, lwd=2)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+#
+mtext('C',side=3, line=0.5, cex=1.5, adj=0)#
+######------------------------------------------------------------#
+plot(ICC~mean,ICC_dat, ylim=c(0,1), pch=19, xlab="")#
+#points(ICC_pois~mean,ICC_dat, pch=19, col="red")#
+lines(gaus_rep * (means*est_cv)^2 / (means + (means*est_cv)^2 ) ~ means, col="red")#
+abline(h=gaus_rep, lty=2)#
+text(25,0.95, paste("Estimated ICC =", round(gaus_rep,3)), cex=1.5)#
+mtext('D',side=3, line=0.5, cex=1.5, adj=0)#
+mtext("Mean number of observed visits",line=0.5,side=1,outer=TRUE, cex=1.75)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")#
+#
+load("lit_review/extracted_lit_review.Rdata")
+library(scales)#
+#
+obsN_rep <- rep(dat2$new_mean, dat2$N_analysis)#
+#
+exp_cv_rep <- rep(dat2$exp_cv, dat2$N_analysis)#
+obs_prop <- rep(dat2$prop_w0, dat2$N_analysis)#
+#
+propExpVar <- function(mean,cv){#
+	exVar <- (mean*cv)^2#
+	obsVar <- mean+exVar#
+	return(exVar/obsVar)#
+}#
+sym_dat <- na.omit(dat2[,c("new_mean","prop_w0","N_analysis","direct")])
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y - (2:(length(legend)+1))^2*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y+yspace, title, cex=1.25)#
+}
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")#
+#
+load("lit_review/extracted_lit_review.Rdata")#
+#
+library(scales)#
+#
+obsN_rep <- rep(dat2$new_mean, dat2$N_analysis)#
+exp_cv_rep <- rep(dat2$exp_cv, dat2$N_analysis)#
+obs_prop <- rep(dat2$prop_w0, dat2$N_analysis)#
+#
+propExpVar <- function(mean,cv){#
+	exVar <- (mean*cv)^2#
+	obsVar <- mean+exVar#
+	return(exVar/obsVar)#
+}#
+sym_dat <- na.omit(dat2[,c("new_mean","prop_w0","N_analysis","direct")])#
+#
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y - (2:(length(legend)+1))^2*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y+yspace, title, cex=1.25)#
+}
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2, bty="n")#
+sym_legend(158, 0.52, c(1,2,4,8,16), yspace=0.0075, inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}
+library(fields)#
+library(latex2exp) # enable to use LaTex in R expression#
+#
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")
+rm(list=ls())#
+#
+library(rstan)#
+library(pbapply)#
+library(lme4)#
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/MEM")#
+set.seed(25)#
+mean_obs <- (seq(1,10,length.out=200))^2 ## 1:100 ##exp(seq(0.5,4.75,length.out=100))#
+hist(mean_obs)#
+#mean=40#
+datasets <- lapply(mean_obs, function(mean){#
+	N <- 100#
+	cv <- 0.3#
+	R2_PR <- 0.5#
+	sd <- mean*cv#
+	meanLat <- log(mean)#
+	varLat <- log(1+sd^2/mean^2)#
+	rain <- rnorm(N, 0, sqrt(R2_PR*varLat))#
+	lambda <- exp(rnorm(N,meanLat + rain,sqrt(varLat - R2_PR*varLat)))#
+	visits <- rpois(N,lambda)#
+#
+	#simulate chick body mass#
+	sd_mass <- 20#
+	R2 <- 0.5#
+	beta_1 <- (sd_mass*sqrt(R2))/sd#
+	beta_0 <- 200 - beta_1*mean#
+	sigma <- sd_mass*sqrt(1-R2)#
+	mass <- rnorm(N, beta_0 + beta_1*lambda, sigma)#
+#
+	data.frame(mass,visits,rain)#
+})
+R2_response <- as.data.frame(t(sapply(datasets, function(data){	#
+	mod <- lm(visits~rain,data)#
+	#var(model.matrix(mod)%*%coef(mod))/var(data$visits)#
+	#summary(mod)#
+	#(var(data$visits) - summary(mod)$sigma^2)/var(data$visits)#
+	R2_lm <- var(model.matrix(mod)%*%coef(mod))/(var(model.matrix(mod)%*%coef(mod)) + summary(mod)$sigma^2)#
+	data$obs <- 1:nrow(data)#
+	mod2 <- glmer(visits~rain + (1|obs),data,family="poisson")#
+	R2_pois <- var(model.matrix(mod2) %*% summary(mod2)$coef[,1])/(var(model.matrix(mod2) %*% summary(mod2)$coef[,1]) + as.numeric(summary(mod2)$var$obs))#
+	return(c(mean=mean(data$visits), R2_lm=R2_lm, R2_pois=R2_pois))#
+	})))#
+head(R2_response)
+R2_response
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19)#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5, col="red")#
+abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs)
+library(rstan)#
+library(pbapply)#
+library(lme4)#
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")#
+#
+set.seed(25)#
+mean_obs <- (seq(1,10,length.out=200))^2 ## 1:100 ##exp(seq(0.5,4.75,length.out=100))#
+hist(mean_obs)
+datasets <- lapply(mean_obs, function(mean){#
+	N <- 100#
+	cv <- 0.3#
+	R2_PR <- 0.5#
+	sd <- mean*cv#
+	meanLat <- log(mean)#
+	varLat <- log(1+sd^2/mean^2)#
+	rain <- rnorm(N, 0, sqrt(R2_PR*varLat))#
+	lambda <- exp(rnorm(N,meanLat + rain,sqrt(varLat - R2_PR*varLat)))#
+	visits <- rpois(N,lambda)#
+#
+	#simulate chick body mass#
+	sd_mass <- 20#
+	R2 <- 0.5#
+	beta_1 <- (sd_mass*sqrt(R2))/sd#
+	beta_0 <- 200 - beta_1*mean#
+	sigma <- sd_mass*sqrt(1-R2)#
+	mass <- rnorm(N, beta_0 + beta_1*lambda, sigma)#
+#
+	data.frame(mass,visits,rain)#
+})
+R2_response <- as.data.frame(t(sapply(datasets, function(data){	#
+	mod <- lm(visits~rain,data)#
+	#var(model.matrix(mod)%*%coef(mod))/var(data$visits)#
+	#summary(mod)#
+	#(var(data$visits) - summary(mod)$sigma^2)/var(data$visits)#
+	R2_lm <- var(model.matrix(mod)%*%coef(mod))/(var(model.matrix(mod)%*%coef(mod)) + summary(mod)$sigma^2)#
+	data$obs <- 1:nrow(data)#
+	mod2 <- glmer(visits~rain + (1|obs),data,family="poisson")#
+	R2_pois <- var(model.matrix(mod2) %*% summary(mod2)$coef[,1])/(var(model.matrix(mod2) %*% summary(mod2)$coef[,1]) + as.numeric(summary(mod2)$var$obs))#
+	return(c(mean=mean(data$visits), R2_lm=R2_lm, R2_pois=R2_pois))#
+	})))
+R2_response <- as.data.frame(t(pbsapply(datasets, function(data){	#
+	mod <- lm(visits~rain,data)#
+	#var(model.matrix(mod)%*%coef(mod))/var(data$visits)#
+	#summary(mod)#
+	#(var(data$visits) - summary(mod)$sigma^2)/var(data$visits)#
+	R2_lm <- var(model.matrix(mod)%*%coef(mod))/(var(model.matrix(mod)%*%coef(mod)) + summary(mod)$sigma^2)#
+	data$obs <- 1:nrow(data)#
+	mod2 <- glmer(visits~rain + (1|obs),data,family="poisson")#
+	R2_pois <- var(model.matrix(mod2) %*% summary(mod2)$coef[,1])/(var(model.matrix(mod2) %*% summary(mod2)$coef[,1]) + as.numeric(summary(mod2)$var$obs))#
+	return(c(mean=mean(data$visits), R2_lm=R2_lm, R2_pois=R2_pois))#
+	})))
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19)
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5, col="red")#
+abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs)
+stanModel <- stan_model(file = "simulations/Poisson_measurement_error_model.stan")
+head(datasets)
+lapply(datasets,head)[[1]]
+R2_predictor <- as.data.frame(t(pbsapply(datasets, function(data){	#
+	mod_LM <- lm(mass~visits, data)#
+	V_f_LM <- var(model.matrix(mod_LM) %*% coef(mod_LM))#
+	V_e_LM <- summary(mod_LM)$sigma^2#
+	R2_LM <- V_f_LM / (V_f_LM + V_e_LM)#
+#
+	stanData <- list(N=nrow(data),a=data$mass,v=data_visits)#
+	fit <- sampling(stanModel, data = stanData, iter = 2000, chains = 1,open_progress = F, control = list(max_treedepth = 15, adapt_delta=0.91))#
+	ex_fit <- extract(fit, permute=FALSE)#
+	PR_pred <- ex_fit[,,grep("PR\\[",dimnames(ex_fit)[[3]])]#
+	outmat <- ex_fit[,,"beta_0"] + ex_fit[,,"beta_1"] * PR_pred[,]#
+	V_f_stan <- apply(outmat, 1, var)#
+	V_e_stan <- ex_fit[,,"sigma"]^2#
+	R2_stan <- V_f_stan / (V_f_stan + V_e_stan)#
+	return(c(mean=mean(data$visits), R2_lm=R2_LM, R2_mem=R2_stan))#
+})))
+R2_predictor <- as.data.frame(t(pbsapply(datasets, function(data){	#
+	mod_LM <- lm(mass~visits, data)#
+	V_f_LM <- var(model.matrix(mod_LM) %*% coef(mod_LM))#
+	V_e_LM <- summary(mod_LM)$sigma^2#
+	R2_LM <- V_f_LM / (V_f_LM + V_e_LM)#
+#
+	stanData <- list(N=nrow(data),a=data$mass,v=data$visits)#
+	fit <- sampling(stanModel, data = stanData, iter = 2000, chains = 1,open_progress = F, control = list(max_treedepth = 15, adapt_delta=0.91))#
+	ex_fit <- extract(fit, permute=FALSE)#
+	PR_pred <- ex_fit[,,grep("PR\\[",dimnames(ex_fit)[[3]])]#
+	outmat <- ex_fit[,,"beta_0"] + ex_fit[,,"beta_1"] * PR_pred[,]#
+	V_f_stan <- apply(outmat, 1, var)#
+	V_e_stan <- ex_fit[,,"sigma"]^2#
+	R2_stan <- V_f_stan / (V_f_stan + V_e_stan)#
+	return(c(mean=mean(data$visits), R2_lm=R2_LM, R2_mem=R2_stan))#
+})))
+write.csv(R2_predictor,file="simulations/R2_predictor.csv",row.names=FALSE)
+warnings()
+R2_response <- read.csv(file="simulations/R2_response.csv")#
+R2_predictor <- read.csv(file="simulations/R2_predictor.csv")
+load(file="simulations/R2_pois_est.Rdata")
+layout(matrix(c(1,1,2,2,3:6), nrow=2, byrow=TRUE), width=c(1,5,5,1))#
+#
+par(mar=c(2,5,3,1), cex.lab=1.75, cex.axis=1.4,oma = c(4, 0, 0, 0))#
+mean_obs <- 1:100 ##exp(seq(0.5,4.75,length.out=100))#
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)#
+plot(R2_lm~mean,R2_predictor,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)#
+# mean_obs <- exp(seq(0.5,4.75,length.out=100))#
+# plot(res_2["lm","R2",]~mean_obs, ylim=c(0,1), pch=19, xlab="", ylab="")#
+# #points(res_2["stan_lm","R2",]~mean_obs, col="blue", pch=19)#
+# points(res_2["stan_MEM","R2",]~mean_obs, col="red", pch=19)#
+# abline(h=0.7)#
+# mtext('B',side=3, line=0.5, cex=1.5, adj=0)#
+#
+means <- 1:119#
+exVar <- (means*0.3)^2 #
+obsVar <- means+exVar#
+lines((exVar/obsVar)*0.7~means, lty=2)	#
+nSims <- 1000#
+sim_means <- seq(1,10,0.5)^2#
+sim_cvs <- seq(0.1,1,0.1)#
+#
+out_R2_2 <- array(unlist(out_R2), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+dim(out_R2_2)#
+sum(is.na(out_R2_2))#
+#
+ apply(out_R2_2,c(2,3),function(x) sum(is.na(x)))#
+#
+bias_R2 <- apply(out_R2_2,c(2,3),mean, na.rm=TRUE) - 0.5#
+precision_R2 <- 1/apply(out_R2_2,c(2,3),sd, na.rm=TRUE)#
+#par(mar=c(1,5,3,1.5))#
+par(mar=c(3,6,4,1))#
+image(x=1, y= seq(min(bias_R2),max(bias_R2),0.01), z=matrix(seq(min(bias_R2),max(bias_R2),0.01),nrow=1), ylab=TeX("$E(\\hat{\\theta}) - \\theta$"), xlab="", xaxt="n", col=tim.colors())#
+mtext('C',side=3, line=0.5, cex=1.5, adj=0)#
+#
+par(mar=c(3,1,4,5))#
+image(x=sim_means, y= sim_cvs, z=bias_R2, ylab="", xlab="", yaxt="n", col=tim.colors())#
+axis(4)#
+#
+par(mar=c(3,5,4,1))#
+image(x=sim_means, y= sim_cvs, z=precision_R2, ylab="", xlab="", col=tim.colors())#
+mtext("Expected CV", side=2, line=4.5, cex=1.5)#
+mtext('D',side=3, line=0.5, cex=1.5, adj=0)#
+#
+par(mar=c(3,1,4,6))#
+image(x=1, y= seq(min(precision_R2),max(precision_R2),0.01), z=matrix(seq(min(precision_R2),max(precision_R2),0.01),nrow=1), xaxt="n", yaxt="n", ylab=" ", xlab="", col=tim.colors())#
+axis(4)#
+mtext(TeX("$^1/_{\\sigma_{\\hat{\\theta}}}$"), side=4, line=4, cex=1.5)#
+#
+mtext('Mean number of observed visits',side=1,outer=TRUE, line=2, cex=1.5)
+par(mar=c(2,5,3,1), cex.lab=1.75, cex.axis=1.4,oma = c(4, 0, 0, 0))#
+mean_obs <- 1:100 ##exp(seq(0.5,4.75,length.out=100))#
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)#
+plot(R2_lm~mean,R2_predictor,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('B',side=3, line=0.5, cex=1.5, adj=0)
+mean_obs <- 1:100 ##exp(seq(0.5,4.75,length.out=100))#
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)#
+plot(R2_lm~mean,R2_predictor,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_predictor,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('B',side=3, line=0.5, cex=1.5, adj=0)
+par(mar=c(2,5,3,1), cex.lab=1.75, cex.axis=1.4,oma = c(4, 0, 0, 0))#
+mean_obs <- 1:100 ##exp(seq(0.5,4.75,length.out=100))#
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)
+plot(R2_lm~mean,R2_predictor,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))
+points(R2_mem~mean,R2_predictor,ylim=c(0,1),col="red",pch=19)
+head(R2_predictor)
+R2_predictor[,3:202]
+head(R2_predictor[,3:202])
+apply(R2_predictor[,3:202],1,mean)
+R2_predictor <- cbind(R2_predictor[,1:2],R2_mem=apply(R2_predictor[,3:202],1,mean))
+R2_predictor
+write.csv(R2_predictor,file="simulations/R2_predictor.csv",row.names=FALSE)
+layout(matrix(c(1,1,2,2,3:6), nrow=2, byrow=TRUE), width=c(1,5,5,1))#
+#
+par(mar=c(2,5,3,1), cex.lab=1.75, cex.axis=1.4,oma = c(4, 0, 0, 0))#
+mean_obs <- 1:100 ##exp(seq(0.5,4.75,length.out=100))#
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)#
+plot(R2_lm~mean,R2_predictor,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_mem~mean,R2_predictor,ylim=c(0,1),col="red",pch=19)
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('B',side=3, line=0.5, cex=1.5, adj=0)
+layout(matrix(c(1,1,2,2,3:6), nrow=2, byrow=TRUE), width=c(1,5,5,1))#
+#
+par(mar=c(2,5,3,1), cex.lab=1.75, cex.axis=1.4,oma = c(4, 0, 0, 0))#
+mean_obs <- 1:100 ##exp(seq(0.5,4.75,length.out=100))#
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)#
+plot(R2_lm~mean,R2_predictor,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_mem~mean,R2_predictor,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('B',side=3, line=0.5, cex=1.5, adj=0)
+(seq(1,10,length.out=200))^2
+nSims <- 1000#
+sim_means <- seq(1,10,0.5)^2#
+sim_cvs <- seq(0.1,1,0.1)#
+#
+out_R2_2 <- array(unlist(out_R2), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+dim(out_R2_2)#
+sum(is.na(out_R2_2))#
+#
+ apply(out_R2_2,c(2,3),function(x) sum(is.na(x)))#
+#
+bias_R2 <- apply(out_R2_2,c(2,3),mean, na.rm=TRUE) - 0.5#
+precision_R2 <- 1/apply(out_R2_2,c(2,3),sd, na.rm=TRUE)
+nSims <- 1000#
+sim_means <- seq(1,10,0.5)^2#
+sim_cvs <- seq(0.1,1,0.1)#
+#
+out_R2_2 <- array(unlist(out_R2), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+bias_R2 <- apply(out_R2_2,c(2,3),mean, na.rm=TRUE) - 0.5#
+precision_R2 <- 1/apply(out_R2_2,c(2,3),sd, na.rm=TRUE)
+par(mar=c(3,6,4,1))#
+image(x=1, y= seq(min(bias_R2),max(bias_R2),0.01), z=matrix(seq(min(bias_R2),max(bias_R2),0.01),nrow=1), ylab=TeX("$E(\\hat{\\theta}) - \\theta$"), xlab="", xaxt="n", col=tim.colors())#
+mtext('C',side=3, line=0.5, cex=1.5, adj=0)#
+#
+par(mar=c(3,1,4,5))#
+image(x=sim_means, y= sim_cvs, z=bias_R2, ylab="", xlab="", yaxt="n", col=tim.colors())#
+axis(4)#
+#
+par(mar=c(3,5,4,1))#
+image(x=sim_means, y= sim_cvs, z=precision_R2, ylab="", xlab="", col=tim.colors())#
+mtext("Expected CV", side=2, line=4.5, cex=1.5)#
+mtext('D',side=3, line=0.5, cex=1.5, adj=0)#
+#
+par(mar=c(3,1,4,6))#
+image(x=1, y= seq(min(precision_R2),max(precision_R2),0.01), z=matrix(seq(min(precision_R2),max(precision_R2),0.01),nrow=1), xaxt="n", yaxt="n", ylab=" ", xlab="", col=tim.colors())#
+axis(4)#
+mtext(TeX("$^1/_{\\sigma_{\\hat{\\theta}}}$"), side=4, line=4, cex=1.5)#
+#
+mtext('Mean number of observed visits',side=1,outer=TRUE, line=2, cex=1.5)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig5.pdf", height=10, width=12)#
+#
+layout(matrix(c(1,1,2,2,3:6), nrow=2, byrow=TRUE), width=c(1,5,5,1))#
+#
+par(mar=c(2,5,3,1), cex.lab=1.75, cex.axis=1.4,oma = c(4, 0, 0, 0))#
+#
+mean_obs <- 1:100#
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)#
+#
+plot(R2_lm~mean,R2_predictor,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_mem~mean,R2_predictor,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('B',side=3, line=0.5, cex=1.5, adj=0)#
+means <- 1:119#
+exVar <- (means*0.3)^2 #
+obsVar <- means+exVar#
+lines((exVar/obsVar)*0.7~means, lty=2)	#
+nSims <- 1000#
+sim_means <- seq(1,10,0.5)^2#
+sim_cvs <- seq(0.1,1,0.1)#
+#
+out_R2_2 <- array(unlist(out_R2), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+bias_R2 <- apply(out_R2_2,c(2,3),mean, na.rm=TRUE) - 0.5#
+precision_R2 <- 1/apply(out_R2_2,c(2,3),sd, na.rm=TRUE)#
+par(mar=c(3,6,4,1))#
+image(x=1, y= seq(min(bias_R2),max(bias_R2),0.01), z=matrix(seq(min(bias_R2),max(bias_R2),0.01),nrow=1), ylab=TeX("$E(\\hat{\\theta}) - \\theta$"), xlab="", xaxt="n", col=tim.colors())#
+mtext('C',side=3, line=0.5, cex=1.5, adj=0)#
+#
+par(mar=c(3,1,4,5))#
+image(x=sim_means, y= sim_cvs, z=bias_R2, ylab="", xlab="", yaxt="n", col=tim.colors())#
+axis(4)#
+#
+par(mar=c(3,5,4,1))#
+image(x=sim_means, y= sim_cvs, z=precision_R2, ylab="", xlab="", col=tim.colors())#
+mtext("Expected CV", side=2, line=4.5, cex=1.5)#
+mtext('D',side=3, line=0.5, cex=1.5, adj=0)#
+#
+par(mar=c(3,1,4,6))#
+image(x=1, y= seq(min(precision_R2),max(precision_R2),0.01), z=matrix(seq(min(precision_R2),max(precision_R2),0.01),nrow=1), xaxt="n", yaxt="n", ylab=" ", xlab="", col=tim.colors())#
+axis(4)#
+mtext(TeX("$^1/_{\\sigma_{\\hat{\\theta}}}$"), side=4, line=4, cex=1.5)#
+#
+mtext('Mean number of observed visits',side=1,outer=TRUE, line=2, cex=1.5)#
+dev.off()#
+#
+## \\frac{1}{\\sigma_{\\theta}}
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig5.pdf", height=10, width=12)#
+#
+layout(matrix(c(1,1,2,2,3:6), nrow=2, byrow=TRUE), width=c(1,5,5,1))#
+#
+par(mar=c(2,5,3,1), cex.lab=1.75, cex.axis=1.4,oma = c(4, 0, 0, 0))#
+#
+mean_obs <- 1:100#
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)#
+#
+plot(R2_lm~mean,R2_predictor,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_mem~mean,R2_predictor,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('B',side=3, line=0.5, cex=1.5, adj=0)#
+nSims <- 1000#
+sim_means <- seq(1,10,0.5)^2#
+sim_cvs <- seq(0.1,1,0.1)#
+#
+out_R2_2 <- array(unlist(out_R2), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+bias_R2 <- apply(out_R2_2,c(2,3),mean, na.rm=TRUE) - 0.5#
+precision_R2 <- 1/apply(out_R2_2,c(2,3),sd, na.rm=TRUE)#
+par(mar=c(3,6,4,1))#
+image(x=1, y= seq(min(bias_R2),max(bias_R2),0.01), z=matrix(seq(min(bias_R2),max(bias_R2),0.01),nrow=1), ylab=TeX("$E(\\hat{\\theta}) - \\theta$"), xlab="", xaxt="n", col=tim.colors())#
+mtext('C',side=3, line=0.5, cex=1.5, adj=0)#
+#
+par(mar=c(3,1,4,5))#
+image(x=sim_means, y= sim_cvs, z=bias_R2, ylab="", xlab="", yaxt="n", col=tim.colors())#
+axis(4)#
+#
+par(mar=c(3,5,4,1))#
+image(x=sim_means, y= sim_cvs, z=precision_R2, ylab="", xlab="", col=tim.colors())#
+mtext("Expected CV", side=2, line=4.5, cex=1.5)#
+mtext('D',side=3, line=0.5, cex=1.5, adj=0)#
+#
+par(mar=c(3,1,4,6))#
+image(x=1, y= seq(min(precision_R2),max(precision_R2),0.01), z=matrix(seq(min(precision_R2),max(precision_R2),0.01),nrow=1), xaxt="n", yaxt="n", ylab=" ", xlab="", col=tim.colors())#
+axis(4)#
+mtext(TeX("$^1/_{\\sigma_{\\hat{\\theta}}}$"), side=4, line=4, cex=1.5)#
+#
+mtext('Mean number of observed visits',side=1,outer=TRUE, line=2, cex=1.5)#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")#
+#
+library(pbapply)#
+library(latex2exp) # enable to use LaTex in R expression#
+#
+run_sim <- FALSE#
+nSims <- 1000#
+sim_means <- seq(1,10,0.5)^2#
+sim_cvs <- seq(0.1,1,0.1)#
+est_cv <- function(mean,cv){#
+	N <- 100#
+	sd <- mean*cv#
+	meanLat <- log(mean)#
+	varLat <- log(1+sd^2/mean^2)#
+	lambda <- exp(rnorm(N,meanLat,sqrt(varLat)))#
+	visits <- rpois(N,lambda)#
+	est_cv <- sqrt(var(visits) - mean(visits))/mean(visits)#
+	return(est_cv)#
+}#
+if(run_sim){#
+	set.seed(25)#
+	out <- pblapply(sim_cvs, function(cv) sapply(sim_means, function(mean) replicate(nSims,est_cv(mean,cv))))#
+	out2 <- array(unlist(out), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+	save(out2, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")#
+}else{#
+	load("simulations/expCV_bias_precision.Rdata")#
+}#
+#
+load("lit_review/extracted_lit_review.Rdata")
+par(mfrow=c(1,2), mar=c(5,5,2,1), cex.lab=1.5, cex.axis=1.25)#
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab=TeX("Proportion where $\\sigma_x>\\bar{x}$"))#
+mtext("A",3, line=0, adj=0, cex=2)#
+#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab=TeX("Number where $\\sigma_x>\\bar{x}$"))#
+mtext("B",3, line=0, adj=0, cex=2)#
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2, cex=1.5)
+mround <- function(x,base) base*round(x/base)
+image.plot(x=sim_means, y= sim_cvs, z=apply(out2,c(2,3),function(x)sum(is.nan(x)))/1000, main="NaNs", col=rev(heat.colors(20)))
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")#
+#
+load('lendvai_data/S2_File.RDATA')
+#function to collect data.frames/matrices with different column names, and to specify those names#
+rbind_notAnnoying <- function(..., names=NULL){#
+	x <- list(...)#
+	y <- lapply(x, function(y){#
+    names(y) <- if(is.null(names)) names(x[[1]]) else names#
+    return(y)  #
+  } )#
+  do.call(rbind,y)#
+}#
+#
+# function to determine if number is whole#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#groups males and females by time period#
+visdat <- rbind_notAnnoying(visitdata[,1:60],visitdata[,62:121], names= paste(rep(7:21,each=4), rep(1:4,15), sep="_"))#
+head(visdat)
+par(mfrow=c(3,1), cex.axis=1.3, cex.lab=2, mar=c(6,6,4,1))#
+plot(apply(visdat,2,function(x) sum(is.na(x)))~ seq(7, 21.75, 0.25), xaxt="n", ylab="Number of NAs", xlab="Time of day (hour)", pch=19, col=c(rep(c(2,1),c(14,ncol(visdat)-14))), ylim=c(0,130))#
+abline(v=7+0.25*13.5, h=128, lty=2, col=c(1,2))#
+axis(1, 7:21)#
+mtext("A", 3, line=1, adj=0, cex=2)#
+plot(apply(visdat,2,function(x) sum(x==0,na.rm=TRUE))~ seq(7, 21.75, 0.25), xaxt="n", ylab="Number of zeros", xlab="Time of day (hour)", pch=19, col=c(rep(c(1,2),c(ncol(visdat)-5,5))), ylim=c(0,130))#
+abline(v=7+0.25*54.5, h=128, lty=2, col=c(1,2))#
+axis(1, 7:21)#
+mtext("B", 3, line=1, adj=0, cex=2)#
+x1 <- seq(10.5, 20.75, 0.25)#
+#
+plot(NA, xlim=c(7,21.75), ylim=c(0,10),xlab="Time of day (hour)", bty="n", xaxt="n", yaxt="n", ylab="New observation period")#
+#
+axis(2, 2:10, 2:10*15)#
+axis(1, 7:21)#
+mtext("C", 3, line=1, adj=0, cex=2)#
+#
+arrows(x1[1:(length(x1)-1)],0.75,x1[2:length(x1)],0.75, length=0, col=c(7,2), lwd=3)#
+#
+plot_arrows <- sapply(2:10, function(timeblocks){#
+	n_cols <- max((1:41)[is.wholenumber(1:41/timeblocks)])#
+	data <- x1#
+	data <- data[(length(data)-n_cols + 1):length(data)]	## preferentially miss out first coloumsn where there is missing data#
+	length(data)#
+	mat_timeblocks <- matrix(1:length(data),nrow=timeblocks)	#
+	arrows(rev(data[mat_timeblocks[1,]]-0.25), timeblocks, rev(data[mat_timeblocks[nrow(mat_timeblocks),]]), timeblocks, length=0.1, code=3, col=c(3,4), lwd=3)#
+} )
+library(latex2exp) # enable to use LaTex in R expression#
+#
+library(tweedie)
+visits <- function(obsTime=90, beta=0.281, alpha=1.08){#
+	visits <- rgamma(1000, rate=beta, shape=alpha)#
+	csVisits <- cumsum(visits)#
+	nVisits <- length(csVisits[csVisits<obsTime])#
+	return(nVisits)#
+	}#
+obsTime <- 90#
+mean <- 5#
+a <- c(1,3,5,7)#
+b <- a/mean#
+meanN <- 90/mean
+set.seed(5)#
+sameMean <- lapply(1:length(a), function(x) replicate(1000,visits(obsTime=obsTime, beta=b[x],alpha=a[x])))
+par(mfcol=c(length(a),4), cex.lab=1.5) #
+x <- lapply(1:length(a), function(x){#
+	plot(seq(0,20,0.1),dgamma(seq(0,20,0.1),  rate=b[x], shape=a[x]), type="l", ylab="Probability density", xlab="Interval length")#
+	if(x==1) mtext("A", side=3,adj=0, line=0.5)#
+	})#
+x <- lapply(1:length(a), function(x) {#
+	plot(table(sameMean[[x]]), xlim=c(0,40), ylim=c(0,250), main=paste("Alpha =", a[x]), xlab="Number of events", col="grey", cex.main=2)#
+	abline(v=mean(sameMean[[x]]), lwd=3, lty=2, col=2)#
+	if(x==1) mtext("B", side=3,adj=0, line=0.5)#
+	})#
+#
+x <- lapply(1:length(a), function(x) {#
+	plot(seq(0,40,1), dtweedie(y=seq(0,40,1), mu=18, phi=1/x, power=1), type="l", ylab="Probability density", xlab="Number of events", ylim=c(0,0.2))#
+	if(x==1) mtext("C", side=3,adj=0, line=0.5)#
+	})#
+plot(a,sapply(sameMean, var), pch=19, cex=2, ylim=c(0,20), ylab="Sampling Variance", xlab="Alpha"); lines(seq(min(a),max(a),0.1),obsTime/(mean*seq(min(a),max(a),0.1))); text(a[3],16, TeX("$\\sigma^2_e = \\frac{t}{\\alpha\\mu}$"), cex=2)#
+mtext("D", side=3,adj=0, line=0.5)
+par(mfcol=c(length(a),4), cex.lab=1.5) #
+x <- lapply(1:length(a), function(x){#
+	plot(seq(0,20,0.1),dgamma(seq(0,20,0.1),  rate=b[x], shape=a[x]), type="l", ylab="Probability density", xlab="Interval length")#
+	if(x==1) mtext("A", side=3,adj=0, line=0.5)#
+	})#
+x <- lapply(1:length(a), function(x) {#
+	plot(table(sameMean[[x]]), xlim=c(0,40), ylim=c(0,250), main=paste("Alpha =", a[x]), xlab="Number of events", cex.main=2)#
+	abline(v=mean(sameMean[[x]]), lwd=3, lty=2, col=2)#
+	if(x==1) mtext("B", side=3,adj=0, line=0.5)#
+	})#
+#
+x <- lapply(1:length(a), function(x) {#
+	plot(seq(0,40,1), dtweedie(y=seq(0,40,1), mu=18, phi=1/x, power=1), type="l", ylab="Probability density", xlab="Number of events", ylim=c(0,0.2))#
+	if(x==1) mtext("C", side=3,adj=0, line=0.5)#
+	})#
+plot(a,sapply(sameMean, var), pch=19, cex=2, ylim=c(0,20), ylab="Sampling Variance", xlab="Alpha"); lines(seq(min(a),max(a),0.1),obsTime/(mean*seq(min(a),max(a),0.1))); text(a[3],16, TeX("$\\sigma^2_e = \\frac{t}{\\alpha\\mu}$"), cex=2)#
+mtext("D", side=3,adj=0, line=0.5)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_figS2.pdf", height=12, width=12)#
+#
+par(mfcol=c(length(a),4), cex.lab=1.5) #
+x <- lapply(1:length(a), function(x){#
+	plot(seq(0,20,0.1),dgamma(seq(0,20,0.1),  rate=b[x], shape=a[x]), type="l", ylab="Probability density", xlab="Interval length")#
+	if(x==1) mtext("A", side=3,adj=0, line=0.5)#
+	})#
+x <- lapply(1:length(a), function(x) {#
+	plot(table(sameMean[[x]]), xlim=c(0,40), ylim=c(0,250), main=paste("Alpha =", a[x]), xlab="Number of events", col="grey", cex.main=2)#
+	abline(v=mean(sameMean[[x]]), lwd=3, lty=2, col=2)#
+	if(x==1) mtext("B", side=3,adj=0, line=0.5)#
+	})#
+#
+x <- lapply(1:length(a), function(x) {#
+	plot(seq(0,40,1), dtweedie(y=seq(0,40,1), mu=18, phi=1/x, power=1), type="l", ylab="Probability density", xlab="Number of events", ylim=c(0,0.2))#
+	if(x==1) mtext("C", side=3,adj=0, line=0.5)#
+	})#
+plot(a,sapply(sameMean, var), pch=19, cex=2, ylim=c(0,20), ylab="Sampling Variance", xlab="Alpha"); lines(seq(min(a),max(a),0.1),obsTime/(mean*seq(min(a),max(a),0.1))); text(a[3],16, TeX("$\\sigma^2_e = \\frac{t}{\\alpha\\mu}$"), cex=2)#
+mtext("D", side=3,adj=0, line=0.5)#
+dev.off()
+x <- lapply(1:length(a), function(x){#
+	plot(seq(0,20,0.1),dgamma(seq(0,20,0.1),  rate=b[x], shape=a[x]), type="l", ylab="Probability density", xlab="Interval length")#
+	if(x==1) mtext("A", side=3,adj=0, line=0.5)#
+	})#
+x <- lapply(1:length(a), function(x) {#
+	plot(table(sameMean[[x]]), xlim=c(0,40), ylim=c(0,250), main=paste("Alpha =", a[x]), xlab="Number of events", col="grey", cex.main=2)#
+	axis(1,seq(0,40,5))#
+	abline(v=mean(sameMean[[x]]), lwd=3, lty=2, col=2)#
+	if(x==1) mtext("B", side=3,adj=0, line=0.5)#
+	})#
+#
+x <- lapply(1:length(a), function(x) {#
+	plot(seq(0,40,1), dtweedie(y=seq(0,40,1), mu=18, phi=1/x, power=1), type="l", ylab="Probability density", xlab="Number of events", ylim=c(0,0.2))#
+	if(x==1) mtext("C", side=3,adj=0, line=0.5)#
+	})#
+plot(a,sapply(sameMean, var), pch=19, cex=2, ylim=c(0,20), ylab="Sampling Variance", xlab="Alpha"); lines(seq(min(a),max(a),0.1),obsTime/(mean*seq(min(a),max(a),0.1))); text(a[3],16, TeX("$\\sigma^2_e = \\frac{t}{\\alpha\\mu}$"), cex=2)#
+mtext("D", side=3,adj=0, line=0.5)
+par(mfcol=c(length(a),4), cex.lab=1.5) #
+x <- lapply(1:length(a), function(x){#
+	plot(seq(0,20,0.1),dgamma(seq(0,20,0.1),  rate=b[x], shape=a[x]), type="l", ylab="Probability density", xlab="Interval length")#
+	if(x==1) mtext("A", side=3,adj=0, line=0.5)#
+	})#
+x <- lapply(1:length(a), function(x) {#
+	plot(table(sameMean[[x]]), xlim=c(0,40), ylim=c(0,250), main=paste("Alpha =", a[x]), xlab="Number of events", col="grey", cex.main=2)#
+	axis(1,seq(0,40,5))#
+	abline(v=mean(sameMean[[x]]), lwd=3, lty=2, col=2)#
+	if(x==1) mtext("B", side=3,adj=0, line=0.5)#
+	})#
+#
+x <- lapply(1:length(a), function(x) {#
+	plot(seq(0,40,1), dtweedie(y=seq(0,40,1), mu=18, phi=1/x, power=1), type="l", ylab="Probability density", xlab="Number of events", ylim=c(0,0.2))#
+	if(x==1) mtext("C", side=3,adj=0, line=0.5)#
+	})#
+plot(a,sapply(sameMean, var), pch=19, cex=2, ylim=c(0,20), ylab="Sampling Variance", xlab="Alpha"); lines(seq(min(a),max(a),0.1),obsTime/(mean*seq(min(a),max(a),0.1))); text(a[3],16, TeX("$\\sigma^2_e = \\frac{t}{\\alpha\\mu}$"), cex=2)#
+mtext("D", side=3,adj=0, line=0.5)
+par(mfcol=c(length(a),4), cex.lab=1.5) #
+x <- lapply(1:length(a), function(x){#
+	plot(seq(0,20,0.1),dgamma(seq(0,20,0.1),  rate=b[x], shape=a[x]), type="l", ylab="Probability density", xlab="Interval length")#
+	if(x==1) mtext("A", side=3,adj=0, line=0.5)#
+	})#
+x <- lapply(1:length(a), function(x) {#
+	plot(table(sameMean[[x]]), xlim=c(0,40), ylim=c(0,250), main=paste("Alpha =", a[x]), xlab="Number of events", col="grey", cex.main=2, xaxt="n")#
+	axis(1,seq(0,40,5))#
+	abline(v=mean(sameMean[[x]]), lwd=3, lty=2, col=2)#
+	if(x==1) mtext("B", side=3,adj=0, line=0.5)#
+	})#
+#
+x <- lapply(1:length(a), function(x) {#
+	plot(seq(0,40,1), dtweedie(y=seq(0,40,1), mu=18, phi=1/x, power=1), type="l", ylab="Probability density", xlab="Number of events", ylim=c(0,0.2))#
+	if(x==1) mtext("C", side=3,adj=0, line=0.5)#
+	})#
+plot(a,sapply(sameMean, var), pch=19, cex=2, ylim=c(0,20), ylab="Sampling Variance", xlab="Alpha"); lines(seq(min(a),max(a),0.1),obsTime/(mean*seq(min(a),max(a),0.1))); text(a[3],16, TeX("$\\sigma^2_e = \\frac{t}{\\alpha\\mu}$"), cex=2)#
+mtext("D", side=3,adj=0, line=0.5)
+par(mfcol=c(length(a),4), cex.lab=1.5) #
+x <- lapply(1:length(a), function(x){#
+	plot(seq(0,20,0.1),dgamma(seq(0,20,0.1),  rate=b[x], shape=a[x]), type="l", ylab="Probability density", xlab="Interval length", ylim=c(0,0.25))#
+	if(x==1) mtext("A", side=3,adj=0, line=0.5)#
+	})#
+x <- lapply(1:length(a), function(x) {#
+	plot(table(sameMean[[x]]), xlim=c(0,40), ylim=c(0,250), main=paste("Alpha =", a[x]), xlab="Number of events", col="grey", cex.main=2, xaxt="n")#
+	axis(1,seq(0,40,5))#
+	abline(v=mean(sameMean[[x]]), lwd=3, lty=2, col=2)#
+	if(x==1) mtext("B", side=3,adj=0, line=0.5)#
+	})#
+#
+x <- lapply(1:length(a), function(x) {#
+	plot(seq(0,40,1), dtweedie(y=seq(0,40,1), mu=18, phi=1/x, power=1), type="l", ylab="Probability density", xlab="Number of events", ylim=c(0,0.2))#
+	if(x==1) mtext("C", side=3,adj=0, line=0.5)#
+	})#
+plot(a,sapply(sameMean, var), pch=19, cex=2, ylim=c(0,20), ylab="Sampling Variance", xlab="Alpha"); lines(seq(min(a),max(a),0.1),obsTime/(mean*seq(min(a),max(a),0.1))); text(a[3],16, TeX("$\\sigma^2_e = \\frac{t}{\\alpha\\mu}$"), cex=2)#
+mtext("D", side=3,adj=0, line=0.5)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_figS2.pdf", height=12, width=12)#
+#
+par(mfcol=c(length(a),4), cex.lab=1.5) #
+x <- lapply(1:length(a), function(x){#
+	plot(seq(0,20,0.1),dgamma(seq(0,20,0.1),  rate=b[x], shape=a[x]), type="l", ylab="Probability density", xlab="Interval length", ylim=c(0,0.25))#
+	if(x==1) mtext("A", side=3,adj=0, line=0.5)#
+	})#
+x <- lapply(1:length(a), function(x) {#
+	plot(table(sameMean[[x]]), xlim=c(0,40), ylim=c(0,250), main=paste("Alpha =", a[x]), xlab="Number of events", col="darkgrey", cex.main=2, xaxt="n")#
+	axis(1,seq(0,40,5))#
+	abline(v=mean(sameMean[[x]]), lwd=3, lty=2, col=2)#
+	if(x==1) mtext("B", side=3,adj=0, line=0.5)#
+	})#
+#
+x <- lapply(1:length(a), function(x) {#
+	plot(seq(0,40,1), dtweedie(y=seq(0,40,1), mu=18, phi=1/x, power=1), type="l", ylab="Probability density", xlab="Number of events", ylim=c(0,0.2))#
+	if(x==1) mtext("C", side=3,adj=0, line=0.5)#
+	})#
+plot(a,sapply(sameMean, var), pch=19, cex=2, ylim=c(0,20), ylab="Sampling Variance", xlab="Alpha"); lines(seq(min(a),max(a),0.1),obsTime/(mean*seq(min(a),max(a),0.1))); text(a[3],16, TeX("$\\sigma^2_e = \\frac{t}{\\alpha\\mu}$"), cex=2)#
+mtext("D", side=3,adj=0, line=0.5)#
+dev.off()
+par(mfcol=c(length(a),4), cex.lab=1.5) #
+x <- lapply(1:length(a), function(x){#
+	plot(seq(0,20,0.1),dgamma(seq(0,20,0.1),  rate=b[x], shape=a[x]), type="l", ylab="Probability density", xlab="Interval length", ylim=c(0,0.25))#
+	if(x==1) mtext("A", side=3,adj=0, line=0.5)#
+	})#
+x <- lapply(1:length(a), function(x) {#
+	plot(table(sameMean[[x]]), xlim=c(0,40), ylim=c(0,250), main=paste("Alpha =", a[x]), xlab="Number of events", col="darkgrey", cex.main=2, xaxt="n")#
+	axis(1,seq(0,40,5))#
+	abline(v=mean(sameMean[[x]]), lwd=3, lty=2, col=2)#
+	if(x==1) mtext("B", side=3,adj=0, line=0.5)#
+	})#
+#
+x <- lapply(1:length(a), function(x) {#
+	plot(seq(0,40,1), dtweedie(y=seq(0,40,1), mu=18, phi=1/x, power=1), type="l", ylab="Probability density", xlab="Number of events", ylim=c(0,0.2))#
+	if(x==1) mtext("C", side=3,adj=0, line=0.5)#
+	})#
+plot(a,sapply(sameMean, var), pch=19, cex=2, ylim=c(0,20), ylab="Sampling Variance", xlab="Alpha"); lines(seq(min(a),max(a),0.1),obsTime/(mean*seq(min(a),max(a),0.1))); text(a[3],16, TeX("$\\sigma^2_e = \\frac{t}{\\alpha\\mu}$"), cex=2)#
+mtext("D", side=3,adj=0, line=0.5)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")#
+#
+load("lit_review/extracted_lit_review.Rdata")#
+#
+library(scales)#
+#
+obsN_rep <- rep(dat2$new_mean, dat2$N_analysis)#
+exp_cv_rep <- rep(dat2$exp_cv, dat2$N_analysis)#
+obs_prop <- rep(dat2$prop_w0, dat2$N_analysis)#
+#
+propExpVar <- function(mean,cv){#
+	exVar <- (mean*cv)^2#
+	obsVar <- mean+exVar#
+	return(exVar/obsVar)#
+}#
+sym_dat <- na.omit(dat2[,c("new_mean","prop_w0","N_analysis","direct")])#
+#
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Number of Analyses"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y - (2:(length(legend)+1))^2*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y+yspace, title, cex=1.25)#
+} #
+setEPS()#
+pdf("figures/PR_fig4.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2, bty="n")#
+sym_legend(158, 0.52, c(1,2,4,8,16), yspace=0.0075, inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
