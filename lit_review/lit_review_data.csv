@@ -1,0 +1,95 @@
+"ref","common_name","scientific_name","obs_method","obs_period_hours","obs_period_hours_mean","single_obs_period_length","mean_rate","mean_rate_use","sd","se","n","pooled","pooled_groups","units","units_hours","mean_chicks_or_adults","notes"
+5,"Bee-eater","Merops apiaster","video","0.5",0.5,TRUE,"9.539766",9.539766,9.10082,NA,NA,TRUE,2,"visits/30min",0.5,NA,"extracted from fig 2a"
+5,"Bee-eater","Merops apiaster",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+10,"Thick-billed Murre","Uria lomvia","automated","73.1 ± 3.7 h mean±SE N=101",73.1,FALSE,"1.552475",1.552475,1.002357,NA,NA,TRUE,3,"visits/day",24,NA,NA
+11,"Thick-billed Murre","Uria lomvia","automated","18",18,TRUE,"0.244",0.244,0.08504117,NA,NA,FALSE,NA,"visits/hour",1,NA,NA
+11,"Common Guillemot","Uria aalge","automated","18",18,TRUE,"0.156",0.156,0.1011138,NA,NA,FALSE,NA,"visits/hour",1,NA,NA
+19,"Cerulean Warbler","Setophaga cerulea","video","0.7592593 ± 0.2545875, mean+sd",0.7592593,FALSE,"4.31",4.31,1.766692,NA,NA,FALSE,NA,"visits/30min",0.5,NA,NA
+22,"Blue Tit","Cyanistes caeruleus","video","~8",8,FALSE,"1.84",1.84,1.89,NA,NA,FALSE,NA,"visits/hour",1,NA,"incubation feeding"
+24,"Acorn Woodpecker","Melanerpes formicivorus","direct","~3",3,FALSE,NA,NA,NA,NA,NA,NA,NA,"visits/hour",1,NA,"data not presented"
+27,"Nuthatch","Sitta europaea","video","92.06 ± SD 12.01 min, N = 30 and 95.05 ± SD 12.01 min (N=26).",1.5,FALSE,"0.4295292",0.4295292,0.7488425,NA,NA,TRUE,2,"visits/hour",1,NA,"incubation feeding extracted from fig 1, no chick feeding data presented"
+28,"House Sparrow","Passer domesticus","video","1.5",1.5,TRUE,NA,NA,NA,NA,NA,NA,NA,"visits/hour",1,NA,"data not presented (embargoed on dryad)"
+29,"Red-flanked Bluetail","Tarsiger cyanurus","video","1",1,TRUE,"16.465686",16.465686,7.069834,NA,NA,TRUE,3,"visits/hour",1,NA,"only control nest included; I THINK that they watched nests multiply for an hour at a time, and analyse number of feeds during that hour, but not completely clear"
+33,"Azure-winged Magpie","Cyanapica cyana","video","unclear",NA,NA,"1.15",1.15,NA,"0.18",14,NA,NA,"visits/hour",1,NA,"incubation feeding; unsure of data collection"
+33,"Azure-winged Magpie","Cyanapica cyana","video","unclear",NA,NA,"1.522042",1.522042,1.26366,NA,NA,FALSE,NA,"visits/hour",1,NA,"extracted from fig 2"
+35,"Magellanic Penguin","Spheniscus magellanicus","automated","unclear",NA,NA,NA,NA,NA,NA,NA,NA,NA,"visits per day?",NA,NA,"No total time presented; many means +/- Sd presented; not sure how meaningful they are - problems arise when sds are below 0"
+37,"Barn Swallow","Hirundo rustica","video","1.5",1.5,TRUE,"20.69",20.69,12.35,NA,NA,FALSE,NA,"visits/90 mins",1.5,NA,"analysed as a binomial; proportion of feeds to chicks of one treatmeant; claim this is the same as a poisson model with treatment as a fixed effect??"
+38,"Chestnut-crowned Babbler","Pomatostomus ruficeps","automated","15 ± 5 SD",15,FALSE,"13.4",13.4,7,NA,NA,NA,NA,"visits/hour",1,NA,"only control included"
+40,"Bull-headed Shrike","Lanius bucephalus","video","4-5",4.5,TRUE,"5",5,2,NA,NA,FALSE,NA,"visits/hour",1,NA,"incubation feeding"
+42,"Sapayoa","Sapayoa aenigma","video","2-4",3,FALSE,"1.066575",1.066575,0.7753294,NA,NA,FALSE,NA,"visits/hour",1,NA,"extracted from figure 4b"
+43,"Tropeiro Seedeater","Sporophila beltoni","mixed direct + video","at least 1.5 - 60/16",3.75,FALSE,"4.793862",4.793862,4.047352,NA,NA,TRUE,6,"visits/hour",1,NA,"extracted from figure 3c"
+54,"Red-winged Blackbird","Agelaius phoeniceus","direct","0.5",0.5,TRUE,"1.541269841",1.541269841,NA,"should be able to calculate from Fig 2?",63,NA,NA,"deliveries/30min/chick",0.5,NA,"sample size is 21 nests 3 treatments"
+55,"Bald Eagle","Haliaeetus leucocephalus","video","~ sunrise-sunset",24,NA,"2.64",2.64,0.7,NA,4,NA,NA,"mean deliveries/day",24,NA,"mean rate is taken from 4 nests, each of whose daily rate had already been calculated as a mean (raw data and no. days observed is not presented)"
+67,"Blue Tit","Cyanistes caeruleus","video","1",1,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not presented"
+69,"Blue Tit","Cyanistes caeruleus","video","2",2,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not presented"
+70,"Chestnut-crowned Babbler","Pomatostomus ruficeps","automated","17 average (range 9-25)",17,NA,"3.1",3.1,2,NA,61,NA,NA,"visits/hour",1,NA,"control treatment"
+71,"Canary","Serinus canaria","video","until first feeding bout",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not presented; Gaussian maybe appropriate because only analysing one feeding bout at a time (the first one following manipulation; feeding bouts include multiple feeding events) therefore complete information rather than sampling?"
+73,"European Starling","Sturnus vulgaris","direct","0.5",0.5,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not presented"
+75,"Red-backed Fairywren","Malurus melanicephalus","direct","1",1,TRUE,"1.342",1.342,1.768347,NA,NA,TRUE,2,"visits/hour",1,NA,"no group sample sizes presented (totalN = 25, split evenly between groups)"
+76,"Eastern Bluebird","Sialia sialis","video","2",2,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not presented"
+85,"Spectacled Tyrant","Hymenops perspicillatus","video","4",4,TRUE,"5.931034483",5.931034483,NA,NA,NA,NA,NA,"visits/hour/nestling",1,NA,"may be able to calculate sd from fig. 3; mean is the mean of four medians from fig. 3 weighted by their sample sizes"
+86,"Rockhopper Penguin","Eudyptes chrysocome","automated","338.4 ± 69.6 SD",338.4,FALSE,"0.6366272",0.6366272,0.3079906,NA,NA,TRUE,6,"visits/day",24,NA,"2011 females; not stated whether SE or SD assume SE"
+87,"Pied Flycatcher","Ficedula hypoleuca","automated","4",4,TRUE,"32.61101",32.61101,13.20544,NA,25,NA,NA,"visits/hour",1,NA,"extracted from fig. 1"
+92,"Arabian Babbler","Turdoides squamiceps","direct","2",2,TRUE,"21.18",21.18,5.94,NA,10,NA,NA,"visits/hour",1,NA,"for control periods (all nestlings present); presume direct observation (""observations were made from a distance of about 1 m"")."
+94,"Long-tailed Tit","Aegithalos caudatus","direct","0.87 (average; range = 0.5-2)",0.87,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not presented"
+96,"Eastern Phoebe","Sayornis phoebe","video","2",2,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not presented"
+97,"Fire-eyed Diucon","Xolmis pyrope","video","1",1,TRUE,"4.157894737",4.157894737,2.267234191,NA,19,NA,NA,"visits/hour/nestling",1,NA,"mean and SD calculated manually off points in fig. 1c (to nearest integer)"
+100,"Syrian Woodpecker","Dendrocopos syriacus","mixed direct + video","2",2,TRUE,"7.95",7.95,2.01,NA,11,NA,NA,"visits/hour",1,NA,"not stated whether SD or SE assume SD; mean rate for both parents combined"
+101,"European Starling","Sturnus vulgaris","direct","0.5",0.5,TRUE,"1.2",1.2,NA,"0.2",32,NA,NA,"visits/hour/nestling",1,NA,"control treatment; not stated whether SE or SD assume SE"
+102,"Undulated Antshrike","Frederickena unduliger","automated","continuous",NA,NA,"1.9",1.9,0.5,NA,NA,NA,NA,"visits/hour",1,NA,"one nest, two carers (assumed from sexual dimorphism), but not stated how many hours of observation the mean was calculated from"
+103,"Blue Tit","Cyanistes caeruleus","video","0.75",0.75,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not presented"
+105,"Blue Tit","Cyanistes caeruleus","video","1",1,TRUE,"25.3075",25.3075,11.67847,NA,NA,NA,NA,"visits/hour",1,NA,"two analyses"
+114,"Blue Tit","Cyanistes caeruleus","video","2",2,TRUE,"0.4024075",0.4024075,0.205126238,NA,400,NA,NA,"visits/min",0.01666666667,NA,"data from GraphClick"
+120,"Arctic Tern","Sterna paradisaea","direct","3",3,TRUE,"3.26",3.26,0.6957011,NA,NA,FALSE,NA,"visits/hour",1,NA,NA
+120,"Common Tern","Sterna hirundo","direct","3",3,TRUE,"3.06",3.06,0.9803061,NA,NA,FALSE,NA,"visits/hour",1,NA,NA
+123,"Blue Tit","Cyanistes caeruleus","video","2",2,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not reported"
+124,"Eastern Kingbird","Tyrannus tyrannus","video","1-4",2.5,NA,"4.94",4.94,NA,"0.424",49,NA,NA,"visits/hour",1,NA,"males"
+126,"Blue Tit","Cyanistes caeruleus","video","1",1,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not reported"
+131,"Common Guillemot","Uria aalge","direct","full day (19 or 20 h depending on date)",20,NA,"4.36",4.36,NA,"0.08",423,NA,NA,"visits/day",20,NA,"not stated whether SD or SE assume SE"
+136,"Bell Miner","Manorina melanophrys","mixed direct + video","not specified",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates and observation periods not presented"
+137,"Tree Swallow","Tachycineta bicolor","direct","1",1,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not presented"
+139,"European Roller","Coracias garrulus","video","c1.5",1.5,NA,"c0.5",0.5,NA,NA,NA,NA,NA,"visits/hour",1,NA,"medians and quartiles presented in Fig. 1 - might be able to calculate better summary stats?"
+148,"Ground Tit","Pseudopodoces humilis","direct","6.5 ± 0.5 in total for nest, but measured every 2 days?",NA,FALSE,"5.363644",5.363644,4.67706,NA,NA,TRUE,4,"visits/hour",1,NA,NA
+150,"House Sparrow","Passer domesticus","mixed direct + video","1 or 2",1.5,NA,"11.4",11.4,NA,"0.2",NA,NA,NA,"visits/hour",1,NA,"sample size not recorded"
+151,"White-browed Sparrow-weaver","Plocepasser mahali","video","mean 3.1 sd 0.27",3.1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not reported"
+153,"Tree Swallow","Tachycineta bicolor","mixed direct + RFID","systematically changed (1 h up to entire day)",NA,NA,"7.52",7.52,4.24,NA,71,NA,NA,"visits/hour",1,NA,"data from GraphClick; summary stats for data that came from direct observation (considered more accurate); paper concluded that 1 h sufficient observation period for reasons of pragmatism, but adding an extra hour could increase the proportion of variance in daily rate explained by an observation period by 0.15"
+159,"House Sparrow","Passer domesticus","video","1.5",1.5,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not reported"
+160,"Tree Swallow","Tachycineta bicolor","video","2",2,TRUE,"15.188",15.188,6.607738,NA,NA,TRUE,2,"visits/hour",1,NA,NA
+163,"Tree Swallow","Tachycineta bicolor","direct","1",1,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"rates not reported"
+164,"Yellowhammer","Emberiza citrinella","direct","1",1,TRUE,"6.58",6.58,4.15,NA,45,NA,NA,"visits/hour",1,NA,"data from GraphClick"
+166,"White-crowned Sparrow","Zonotrichia leucophrys","video","2-4",3,NA,"4.9",4.9,3.3,NA,NA,NA,NA,"visits/hour",1,NA,NA
+172,"Great Tit","Parus major","video","1.5",1.5,TRUE,"15.544878",15.544878,8.128269,NA,NA,TRUE,2,"visits/hour",1,NA,NA
+172,"Blue Tit","Cyanistes caeruleus","video","1.5",1.5,TRUE,"20.06279",20.06279,11.66689,NA,NA,TRUE,2,"visits/hour",1,NA,NA
+174,"House Wren","Troglodytes aedon","video","4",4,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"should be able to calculate summary stats from Table 6"
+178,"House Martin","Delichon urbica","direct","1",1,TRUE,"6.113699",6.113699,2.938074,NA,NA,TRUE,12,"visits/hour",1,NA,"first clutch 2012"
+181,"Lesser Grass-finch","Emberizoides ypiranganus","direct","not specified",NA,TRUE,"2.833333",2.833333,NA,NA,NA,TRUE,3,"visits/hour",1,NA,"combined means, not sure of sample sizes per age, assumed equal, not Sd presented - obseravtion tme not clear"
+184,"European Starling","Sturnus vulgaris","direct","0.5",0.5,TRUE,"6.96",6.96,NA,"0.3",109,NA,NA,"visits / 30 min",0.5,NA,NA
+190,"Oriental Stork","Ciconia boyciana","video","6",6,TRUE,"0.38",0.38,NA,"should be able to calculate from Fig. 4D",12,NA,NA,"visits/hour",1,NA,"mean of males and females - separate SEs presented and not sure how to combine"
+191,"Greater Ani","Crotophaga major","video","mean 14.5 (sd 3, range 12-21)",14.5,FALSE,NA,1.37,0.3109126,NA,NA,TRUE,2,"visits/hour/adult",1,"4-6","hours of recording not continuous, but aggregated"
+194,"Long-tailed Tit","Aegithalos caudatus","direct","c.1",1,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"visit rate squareroot-transformed; data not presented"
+195,"Black-legged Kittiwake","Rissa tridactyla","direct","3",3,TRUE,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"data not presented"
+196,"Wood Warbler","Phylloscopus sibilatrix","video","1",1,TRUE,"14",14,NA,"1",174,NA,NA,"visits/hour",1,NA,"nests filmed continuously but couldn't transcribe all data so resampled periods of an hour from recorded footage"
+200,"Chestnut-crowned Babbler","Pomatostomus ruficeps","automated","9.6 ± 3.7 h/day",9.6,NA,"0.96",0.96,NA,"maybe from fig 2",NA,NA,NA,"visits/hour",1,NA,NA
+201,"Yellow Warbler","Setophaga petechia","video","2-4 hours",3,NA,"1.38",1.38,NA,NA,NA,NA,NA,"visits/hour",1,NA,"male incubation feeding; mean logged from poisson model estiamte"
+201,"Yellow Warbler","Setophaga petechia","video","2-4 hours",3,NA,"6.91",6.91,NA,NA,NA,NA,NA,"visits/hour",1,NA,"nestling feeding; sqrt transforamtion - mean squared from model estimate"
+213,"Cape Gannet","Morus capensis","automated","continuous",NA,FALSE,"0.9946667",0.9946667,0.3316143,NA,NA,NA,NA,"visits/day",NA,NA,"dont know how means and ses were calculated -as sd<1, so problem with calculating CV"
+215,"Great Blue Heron","Ardea herodias","direct","6-9 hours",7.5,NA,"0.4023879",0.4023879,0.4585092,NA,NA,NA,NA,"visits/hour",1,NA,"extracted from fig 3; probably the averages of many averages presented"
+223,"Mississippi Kite","Ictinia mississippiensis","direct","2",2,TRUE,"1.44",1.44,NA,NA,NA,NA,NA,"visits/hour",1,NA,"THINK that they watched nests multiple times, each tme for 2 hours? they then pool all observations of each nest. So I have just included the overal mean, and no Sd"
+224,"House Wren","Troglodytes aedon","video","1",1,TRUE,"7.967391",7.967391,4.861717,NA,NA,NA,NA,"visits/hour",1,NA,"extracted from dryad data"
+227,"Carrion Crow","Corvus corone","video","4-8",6,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Sample sizes not clear - mean±Se presented in figrues"
+229,"Great Reed Warbler","Acrocephalus arundinaceus","video","4.9±1.2 h (mean±SD, range 2–8h). The first 0.5 h of each recording was ignored",4.4,NA,NA,NA,NA,NA,126,NA,NA,NA,NA,NA,NA
+233,"Great Tit","Parus major","video","1",1,TRUE,"27.76646",27.76646,NA,NA,NA,NA,NA,"visits/hour",1,NA,"intercepts from models 2.79 and 3.67 (days 4 and 11); sample sizes are not clear so mean of exp values taken - mean(c(exp(2.79),exp(3.67)))"
+245,"Horned Lark","Eremophila alpestris","video","4",4,TRUE,"4.235",4.235,3.205177,NA,NA,NA,NA,"visits/hour",1,NA,"assume that SD is pesented and not SE, as an SD of 33 with mean of 4 would be impossible!!"
+246,"Blue-black Grassquit","Volatinia jacarina","video","2.20 ± 0.46 h (mean ± SD, range 1.12-2.97 h,N = 185 recordings",2.2,NA,NA,NA,NA,NA,NA,NA,NA,"visits/hour",1,NA,"extract from fig 3"
+253,"Great Tit","Parus major","video","1",1,TRUE,"18.06513",18.06513,10.67049,NA,NA,NA,NA,"visits/hour",1,NA,NA
+254,"Brown Booby","Sula leucogaster","direct","24",24,NA,"5.37",5.37,2.283784,NA,NA,NA,NA,"Visits",24,NA,NA
+262,"Shoebill","Balaeniceps rex","video","24",24,TRUE,"1.12",1.12,1.08,NA,NA,NA,NA,"visits/day",24,NA,NA
+262,"Shoebill","Balaeniceps rex","video","1",1,TRUE,"0.11",0.11,0.35,NA,NA,NA,NA,"visits/hour",1,NA,NA
+274,"Ochre-collared Piculet","Picumnus temminckii","direct","2.5",2.5,NA,"1.705832",1.705832,1.214099,NA,NA,NA,NA,"visits/hour",1,NA,"extracted from fig 2"
+278,"Spotless Starling","Sturnus unicolor","automated","40 mins",0.66667,TRUE,"5.835369",5.835369,4.812383,NA,NA,NA,NA,"visits",0.66667,NA,"extracted from fig 1 and 2"
+279,"Common Tern","Sterna hirundo","direct","1",1,TRUE,"0.62054",0.62054,0.4287584,NA,NA,NA,NA,"visits/hour/chick",1,NA,"extract from fig A4"
+279,"Roseate Tern","Sterna dougallii","direct","1",1,TRUE,"0.4418112",0.4418112,0.2670164,NA,NA,NA,NA,"visits/hour/chick",1,NA,"extract from fig A4"
+281,"Northern Wheatear","Oenanthe oenanthe","automated","1?",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"no summary stats"
+282,"Yellow Warbler","Setophaga petechia","video","~1.5",1.5,FALSE,"5.080226",5.080226,NA,NA,NA,NA,NA,"visits/hour",NA,NA,"extracted from fig 1; not sure how errors calculated so not used"
+283,"Brown Thornbill","Acanthiza pusilla","video","45 mins",0.75,TRUE,"4.266038",4.266038,3.724034,NA,NA,NA,NA,"visits",0.75,NA,"extracted from fig 2"
+288,"Rock Sparrow","Petronia petronia","mixed direct + video","3.17 ± 0.99",3.17,FALSE,"0.7882051",0.7882051,1.8494792,NA,NA,NA,NA,"visits/hour/chick",1,"4.29",NA

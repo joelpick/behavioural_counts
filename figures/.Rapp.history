@@ -1,0 +1,2167 @@
+table(aggregate(species~direct+ref,dat2,length)$direct),
+table(aggregate(species~direct+ref,dat2,length)$direct)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN,na.rm=TRUE)/10), max(obsN,na.rm=TRUE), max(obsN,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(sym_dat$direct,0.5), ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN,na.rm=TRUE)/10), max(obsN,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(sym_dat$direct,0.5), ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(sym_dat$direct,0.5), ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+sym_dat <- na.omit(dat2[,c("new_mean","prop_w0","N_analysis","direct")])
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(sym_dat$direct,0.5), ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+c(TRUE,FALSE)+1
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=col=alpha(c(2,1),0.5)[as.factor(dat2$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+as.factor(dat2$direct)
+alpha(c(2,1),0.5)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(dat2$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+obs_prop
+hist(obs_prop, breaks=20, plot=FALSE)$counts
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(dat2$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(160, 0.5, c(1,5,10,15,20))#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5)){#
+	y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+}
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(160, 0.5, c(1,5,10,15,20))#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(rep(x+5,length(legend)),y+yspace, title)#
+}
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(160, 0.5, c(1,5,10,15))#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y+yspace, title)#
+}
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(160, 0.5, c(1,5,10,15))#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(160, 0.4, c(1,5,10))#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(160, 0.4, c(1,10,20))#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(160, 0.4, c(1,2,4,8,16), inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+1:length(legend)*0.07
+1:length(legend)
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y + (1:length(legend))*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y, title)#
+}
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(sym_dat$direct,0.5), ylim=c(0,1), xlim=c(0,170))
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=2, ylim=c(0,1), xlim=c(0,170))
+sym_legend(160, 0.5, c(1,5,10,15,20))
+sym_legend(160, 0.5, c(1,2,4,8,16))
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=2, ylim=c(0,1), xlim=c(0,170))
+sym_legend(160, 0.5, c(1,2,4,8,16), inches=0.2)
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y - (1:length(legend))*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y, title)#
+} #
+#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=2, ylim=c(0,1), xlim=c(0,170))#
+sym_legend(160, 0.5, c(1,2,4,8,16), inches=0.2)
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y - (1:length(legend))*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y, title)#
+}
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(160, 0.4, c(1,2,4,8,16), inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y - (1:length(legend))^2*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y, title)#
+} #
+#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=2, ylim=c(0,1), xlim=c(0,170))#
+sym_legend(160, 0.5, c(1,2,4,8,16), inches=0.2)
+sym_legend(160, 0.5, c(1,2,4,8,16), yspace=0.01, inches=0.2)
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=2, ylim=c(0,1), xlim=c(0,170))
+sym_legend(160, 0.5, c(1,2,4,8,16), yspace=0.01, inches=0.2)
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y - (1:length(legend))^2*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y+yspace, title)#
+}
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=2, ylim=c(0,1), xlim=c(0,170))#
+sym_legend(160, 0.5, c(1,2,4,8,16), yspace=0.01, inches=0.2)
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y - (2:(length(legend)+1))^2*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y+yspace, title)#
+} #
+#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=2, ylim=c(0,1), xlim=c(0,170))#
+sym_legend(160, 0.5, c(1,2,4,8,16), yspace=0.01, inches=0.2)
+sym_legend(160, 0.5, c(1,2,4,8,16), yspace=0.005, inches=0.2)
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=2, ylim=c(0,1), xlim=c(0,170))#
+sym_legend(160, 0.5, c(1,2,4,8,16), yspace=0.0075
+, inches=0.2)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(160, 0.5, c(1,2,4,8,16), yspace=0.0075, inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y - (2:(length(legend)+1))^2*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y+yspace, title, cex=1.5)#
+}
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=2, ylim=c(0,1), xlim=c(0,170))#
+sym_legend(160, 0.5, c(1,2,4,8,16), yspace=0.0075, inches=0.2)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(160, 0.5, c(1,2,4,8,16), yspace=0.0075, inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(150, 0.5, c(1,2,4,8,16), yspace=0.0075, inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Sample size"){#
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))#
+	y_coords <- y - (2:(length(legend)+1))^2*yspace#
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)#
+	text(rep(x+10,length(legend)),y_coords, legend)#
+	text(x+5,y+yspace, title, cex=1.25)#
+}
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(150, 0.5, c(1,2,4,8,16), yspace=0.0075, inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(155, 0.52, c(1,2,4,8,16), yspace=0.0075, inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)#
+sym_legend(158, 0.52, c(1,2,4,8,16), yspace=0.0075, inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig4_take2.pdf", height=10, width=10)#
+#
+###################------------------------------------------------------------#
+{#
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))#
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))#
+#
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")#
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"#
+#
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol#
+#
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts#
+barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")#
+#
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,6,0,0))#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits") #xlim=c(0,100),#
+#plot(propExpVar(means,0.5), ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="", log="x", col=0)#
+#
+#plot(prop~new_mean, dat2, pch=19, ylim=c(0,1), xlim=c(0,140), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits", cex=sqrt(bubble_size), col=alpha(dat2$direct,0.5))#
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlab="Mean number of observed visits")#
+means <- 1:170				# range of mean visits over which which to plot#
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates #
+#
+# plot line for each CV on expected scale #
+em <- lapply(cvs, function(x) {			#
+	y <- propExpVar(means,x)#
+	lines(y~means, lty=x*10+1, lwd=0.5)		# add lines#
+})#
+#
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2, bty="n")#
+sym_legend(158, 0.52, c(1,2,4,8,16), yspace=0.0075, inches=0.2)#
+#
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")#
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(0,0,0,0))#
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")#
+#
+###################------------------------------------------------------------#
+#
+par(mar=c(6,0,0,1))#
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts#
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")#
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")#
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))#
+}#
+dev.off()
+plot(is.nan(exp_cv)~new_mean,dat2)
+mround <- function(x,base) base*round(x/base)
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), xlim=c(0,100), pch=19)
+save(dat2, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/extracted_lit_review.Rdata")
+sapply(summary_data,sum)
+save(summary_data, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/summary_lit_review.Rdata")
+out2
+rm(list=ls())#
+load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/extracted_lit_review.Rdata")
+set.seed(25)#
+	nSims <- 1000#
+	sim_means <- seq(1,10,0.5)^2#
+	sim_cvs <- seq(0.1,1,0.1)#
+	out <- pblapply(sim_cvs, function(cv) sapply(sim_means, function(mean) replicate(nSims,est_cv(mean,cv))))#
+	out2 <- array(unlist(out), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+	save(out2, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")
+est_cv <- function(mean,cv){#
+	N <- 100#
+	sd <- mean*cv#
+	meanLat <- log(mean)#
+	varLat <- log(1+sd^2/mean^2)#
+	lambda <- exp(rnorm(N,meanLat,sqrt(varLat)))#
+	visits <- rpois(N,lambda)#
+	est_cv <- sqrt(var(visits) - mean(visits))/mean(visits)#
+	return(est_cv)#
+}
+set.seed(25)#
+	nSims <- 1000#
+	sim_means <- seq(1,10,0.5)^2#
+	sim_cvs <- seq(0.1,1,0.1)#
+	out <- pblapply(sim_cvs, function(cv) sapply(sim_means, function(mean) replicate(nSims,est_cv(mean,cv))))#
+	out2 <- array(unlist(out), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+	save(out2, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")
+library(pbapply)
+set.seed(25)#
+	nSims <- 1000#
+	sim_means <- seq(1,10,0.5)^2#
+	sim_cvs <- seq(0.1,1,0.1)#
+	out <- pblapply(sim_cvs, function(cv) sapply(sim_means, function(mean) replicate(nSims,est_cv(mean,cv))))#
+	out2 <- array(unlist(out), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+	save(out2, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")
+dim(out2)
+warnings()
+apply(out2,c(2,3),mean, na.rm=TRUE)
+apply(out2,c(2,3),function(x) sum(is.nan(x)))
+apply(out2,c(2),function(x) sum(is.nan(x)))/(10*1000)
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19)
+par(mfrow=c(1,2))#
+ plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19)#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), xlim=c(0,100), pch=19)
+rm(list=ls())#
+#
+library(fields)#
+library(latex2exp) # enable to use LaTex in R expression#
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/MEM")#
+#
+R2_response <- read.csv(file="R2_response.csv")#
+load("poisson_MEM_20170804.Rdata")#
+ load(file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/R2_pois_est.Rdata")#
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig5.pdf", height=10, width=12)#
+#
+layout(matrix(c(1,1,2,2,3:6), nrow=2, byrow=TRUE), width=c(1,5,5,1))#
+#
+par(mar=c(2,5,3,1), cex.lab=1.75, cex.axis=1.4,oma = c(4, 0, 0, 0))#
+mean_obs <- 1:100 ##exp(seq(0.5,4.75,length.out=100))#
+plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))#
+points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)#
+abline(h=0.5)#
+#abline(v=20,lty=2)#
+lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)#
+mtext('A',side=3, line=0.5, cex=1.5, adj=0)#
+mean_obs <- exp(seq(0.5,4.75,length.out=100))#
+plot(res_2["lm","R2",]~mean_obs, ylim=c(0,1), pch=19, xlab="", ylab="")#
+#points(res_2["stan_lm","R2",]~mean_obs, col="blue", pch=19)#
+points(res_2["stan_MEM","R2",]~mean_obs, col="red", pch=19)#
+abline(h=0.7)#
+mtext('B',side=3, line=0.5, cex=1.5, adj=0)#
+#
+means <- 1:119#
+exVar <- (means*0.3)^2 #
+obsVar <- means+exVar#
+lines((exVar/obsVar)*0.7~means, lty=2)	#
+nSims <- 1000#
+sim_means <- seq(1,10,0.5)^2#
+sim_cvs <- seq(0.1,1,0.1)#
+#
+out_R2_2 <- array(unlist(out_R2), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+dim(out_R2_2)#
+sum(is.na(out_R2_2))#
+#
+ apply(out_R2_2,c(2,3),function(x) sum(is.na(x)))#
+#
+bias_R2 <- apply(out_R2_2,c(2,3),mean, na.rm=TRUE) - 0.5#
+precision_R2 <- 1/apply(out_R2_2,c(2,3),sd, na.rm=TRUE)#
+#par(mar=c(1,5,3,1.5))#
+par(mar=c(3,6,4,1))#
+image(x=1, y= seq(min(bias_R2),max(bias_R2),0.01), z=matrix(seq(min(bias_R2),max(bias_R2),0.01),nrow=1), ylab=TeX("$E(\\hat{\\theta}) - \\theta$"), xlab="", xaxt="n", col=tim.colors())#
+mtext('C',side=3, line=0.5, cex=1.5, adj=0)#
+#
+par(mar=c(3,1,4,5))#
+image(x=sim_means, y= sim_cvs, z=bias_R2, ylab="", xlab="", yaxt="n", col=tim.colors())#
+axis(4)#
+#
+par(mar=c(3,5,4,1))#
+image(x=sim_means, y= sim_cvs, z=precision_R2, ylab="", xlab="", col=tim.colors())#
+mtext("Expected CV", side=2, line=4.5, cex=1.5)#
+mtext('D',side=3, line=0.5, cex=1.5, adj=0)#
+#
+par(mar=c(3,1,4,6))#
+image(x=1, y= seq(min(precision_R2),max(precision_R2),0.01), z=matrix(seq(min(precision_R2),max(precision_R2),0.01),nrow=1), xaxt="n", yaxt="n", ylab=" ", xlab="", col=tim.colors())#
+axis(4)#
+mtext(TeX("$^1/_{\\sigma_{\\hat{\\theta}}}$"), side=4, line=4, cex=1.5)#
+#
+mtext('Mean number of observed visits',side=1,outer=TRUE, line=2, cex=1.5)#
+dev.off()#
+#
+## \\frac{1}{\\sigma_{\\theta}}
+image.plot(x=sim_means, y= sim_cvs, z=apply(out2,c(2,3),function(x)sum(is.nan(x)))/1000, main="NaNs", col=rev(heat.colors(20)))
+rm(list=ls())#
+#
+run_sim <- FALSE#
+#
+library(pbapply)#
+#
+est_cv <- function(mean,cv){#
+	N <- 100#
+	sd <- mean*cv#
+	meanLat <- log(mean)#
+	varLat <- log(1+sd^2/mean^2)#
+	lambda <- exp(rnorm(N,meanLat,sqrt(varLat)))#
+	visits <- rpois(N,lambda)#
+	est_cv <- sqrt(var(visits) - mean(visits))/mean(visits)#
+	return(est_cv)#
+}#
+if(run_sim){#
+	set.seed(25)#
+	nSims <- 1000#
+	sim_means <- seq(1,10,0.5)^2#
+	sim_cvs <- seq(0.1,1,0.1)#
+	out <- pblapply(sim_cvs, function(cv) sapply(sim_means, function(mean) replicate(nSims,est_cv(mean,cv))))#
+	out2 <- array(unlist(out), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+	save(out2, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")#
+}else{#
+	load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")#
+}#
+#
+load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/extracted_lit_review.Rdata")#
+dim(out2)#
+ apply(out2,c(2,3),mean, na.rm=TRUE)#
+#
+ apply(out2,c(2,3),function(x) sum(is.nan(x)))#
+ apply(out2,c(2),function(x) sum(is.nan(x)))/(10*1000)#
+par(mfrow=c(1,2))#
+ plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19)#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), xlim=c(0,100), pch=19)#
+ image.plot(x=sim_means, y= sim_cvs, z=apply(out2,c(2,3),function(x)sum(is.nan(x)))/1000, main="NaNs", col=rev(heat.colors(20)))
+mround <- function(x,base) base*round(x/base) #
+par(mfrow=c(1,2))#
+ plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19)#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), xlim=c(0,100), pch=19)
+rm(list=ls())#
+#
+run_sim <- FALSE#
+#
+library(pbapply)#
+#
+est_cv <- function(mean,cv){#
+	N <- 100#
+	sd <- mean*cv#
+	meanLat <- log(mean)#
+	varLat <- log(1+sd^2/mean^2)#
+	lambda <- exp(rnorm(N,meanLat,sqrt(varLat)))#
+	visits <- rpois(N,lambda)#
+	est_cv <- sqrt(var(visits) - mean(visits))/mean(visits)#
+	return(est_cv)#
+}#
+if(run_sim){#
+	set.seed(25)#
+	nSims <- 1000#
+	sim_means <- seq(1,10,0.5)^2#
+	sim_cvs <- seq(0.1,1,0.1)#
+	out <- pblapply(sim_cvs, function(cv) sapply(sim_means, function(mean) replicate(nSims,est_cv(mean,cv))))#
+	out2 <- array(unlist(out), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+	save(out2, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")#
+}else{#
+	load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")#
+}#
+#
+load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/extracted_lit_review.Rdata")#
+dim(out2)
+apply(out2,c(2,3),mean, na.rm=TRUE)
+apply(out2,c(2,3),function(x) sum(is.nan(x)))
+apply(out2,c(2),function(x) sum(is.nan(x)))/(10*1000)
+mround <- function(x,base) base*round(x/base)
+par(mfrow=c(1,2))#
+ plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19)#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), xlim=c(0,100), pch=19)
+rm(list=ls())#
+#
+library(pbapply)#
+#
+run_sim <- FALSE#
+nSims <- 1000#
+sim_means <- seq(1,10,0.5)^2#
+sim_cvs <- seq(0.1,1,0.1)#
+est_cv <- function(mean,cv){#
+	N <- 100#
+	sd <- mean*cv#
+	meanLat <- log(mean)#
+	varLat <- log(1+sd^2/mean^2)#
+	lambda <- exp(rnorm(N,meanLat,sqrt(varLat)))#
+	visits <- rpois(N,lambda)#
+	est_cv <- sqrt(var(visits) - mean(visits))/mean(visits)#
+	return(est_cv)#
+}#
+if(run_sim){#
+	set.seed(25)#
+	out <- pblapply(sim_cvs, function(cv) sapply(sim_means, function(mean) replicate(nSims,est_cv(mean,cv))))#
+	out2 <- array(unlist(out), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+	save(out2, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")#
+}else{#
+	load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")#
+}#
+#
+load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/extracted_lit_review.Rdata")#
+dim(out2)#
+ apply(out2,c(2,3),mean, na.rm=TRUE)#
+#
+ apply(out2,c(2,3),function(x) sum(is.nan(x)))#
+ apply(out2,c(2),function(x) sum(is.nan(x)))/(10*1000)#
+mround <- function(x,base) base*round(x/base) #
+par(mfrow=c(1,2))#
+ plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19)#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), xlim=c(0,100), pch=19)
+par(mfrow=c(1,2))#
+ plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19)#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19)
+image.plot(x=sim_means, y= sim_cvs, z=apply(out2,c(2,3),function(x)sum(is.nan(x)))/1000, main="NaNs", col=rev(heat.colors(20)))
+mtext("Mean number of Observed Visits")
+par(mfrow=c(1,2))#
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="")#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19)
+mtext(1,"Mean number of Observed Visits")
+mtext()"Mean number of Observed Visits",1)
+mtext("Mean number of Observed Visits",1)
+mtext("Mean number of Observed Visits",1, outer=TRUE)
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=1)
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-1)
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2)
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab="Proportion of NaN")
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="")
+par(mfrow=c(1,2))#
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab="Proportion of NaN")#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab="Number of NaN")#
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2)
+mtext("A",3, line=1, adj=0)
+mtext("A",3, line=0, adj=0)
+mtext("A",3, line=0, adj=0, cex=2)
+par(mfrow=c(1,2))#
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab="Proportion of NaN")#
+mtext("A",3, line=0, adj=0, cex=2)#
+#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab="Number of NaN")#
+mtext("B",3, line=0, adj=0, cex=2)#
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2)
+par(mfrow=c(1,2), mar=c(5,5,2,1))
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab="Proportion of NaN")#
+mtext("A",3, line=0, adj=0, cex=2)#
+#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab="Number of NaN")#
+mtext("B",3, line=0, adj=0, cex=2)#
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2)
+par(mfrow=c(1,2), mar=c(5,5,2,1), cex.lab=1.5)#
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab="Proportion of NaN")#
+mtext("A",3, line=0, adj=0, cex=2)#
+#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab="Number of NaN")#
+mtext("B",3, line=0, adj=0, cex=2)#
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2)
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2, cex=1.5)
+par(mfrow=c(1,2), mar=c(5,5,2,1), cex.lab=1.5)#
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab="Proportion of NaN")#
+mtext("A",3, line=0, adj=0, cex=2)#
+#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab="Number of NaN")#
+mtext("B",3, line=0, adj=0, cex=2)#
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2, cex=1.5)
+par(mfrow=c(1,2), mar=c(5,5,2,1), cex.lab=1.5, cex.axis=1.25)#
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab="Proportion of NaN")#
+mtext("A",3, line=0, adj=0, cex=2)#
+#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab="Number of NaN")#
+mtext("B",3, line=0, adj=0, cex=2)#
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2, cex=1.5)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_figII.pdf", height=5, width=10)#
+#
+par(mfrow=c(1,2), mar=c(5,5,2,1), cex.lab=1.5, cex.axis=1.25)#
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab="Proportion of NaN")#
+mtext("A",3, line=0, adj=0, cex=2)#
+#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab="Number of NaN")#
+mtext("B",3, line=0, adj=0, cex=2)#
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2, cex=1.5)#
+#
+dev.off()
+rm(list=ls())#
+library(scales)#
+set.seed(3)#
+#
+n <- 200#
+mean <- 20#
+sd <- 8#
+exp1 <- rep(mean,n)#
+obs1 <- rpois(n, exp1)#
+exp2 <- rlnorm(n, meanlog = log(mean), sdlog = sqrt(log(1+sd/mean^2)))#
+obs2 <- rpois(n, exp2)#
+Xmax <- max(c(obs1,obs2))#
+#
+exp1Counts = hist(exp1, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts#
+obs1Counts = hist(obs1, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts#
+obs1Counts_tab = table(obs1)#
+exp2Counts = hist(exp2, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts#
+obs2Counts = hist(obs2, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts#
+obs2Counts_tab = table(obs2)#
+#
+xSpace <- ySpace <- 5#
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_fig1.pdf", height=10, width=10)#
+layout(matrix(c(1:12), ncol=3, byrow=FALSE),heights=c(1,2,4,2)/10, widths=c(2,4,4)/10)#
+#
+par(mar=c(0,0,0,0), cex.lab=1.5)#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+text(0.5,0.05, "Expected", cex=3)#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+text(0.5,0.95, "Observed", cex=3)#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+text(0.5,0.5, "A) No variation in \n expected PR", cex=2.5)#
+#
+par(mar=c(0,xSpace,0,1), las=2)#
+barplot(exp1Counts, xlim=c(0,Xmax)+0.5, ylim=c(0,n), space=0, ylab="Frequency")#
+#
+par(mar=c(0,xSpace,0,1))#
+plot(rep(2,n)~exp1, xlim=c(0,Xmax), pch=19, cex=0.75, ylim=c(0.9,2.1), yaxt="n", xaxt="n", bty="n", ylab="")#
+#axis(2,c(1,2),c("Observed","Expected"), tick=FALSE, cex.axis=2)#
+points(rep(1,n)~obs1, pch=19, cex=0.5)#
+arrows(exp1,2,obs1,1, length=0.1, col=alpha("black",0.3))#
+#
+par(mar=c(ySpace,xSpace,0,1))#
+# barplot(obs1Counts,  xlim=c(0,Xmax)+0.5, ylim=rev(c(0,n)), space=0,xlab="Provisioning Rate")#
+plot(obs1Counts_tab,  xlim=c(0,Xmax), ylim=rev(c(0,n/4)), bty="n", las=1, xaxt="n", ylab="Frequency",xlab="Provisioning Rate")#
+axis(1,0:Xmax, las=1)#
+par(mar=c(0,0,0,0))#
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")#
+text(0.5,0.5, "B) Variation in \n expected PR", cex=2.5)#
+#
+par(mar=c(0,xSpace,0,1), las=2)#
+barplot(exp2Counts, xlim=c(0,Xmax)+0.5, ylim=c(0,n), space=0, ylab="Frequency")#
+#
+par(mar=c(0,xSpace,0,1))#
+plot(rep(2,n)~exp2, xlim=c(0,Xmax), pch=19, cex=0.75, ylim=c(0.9,2.1), yaxt="n", xaxt="n", bty="n", ylab="")#
+#axis(2,c(1,2),c("Observed","Expected"), tick=FALSE, cex.axis=2)#
+points(rep(1,n)~obs2, pch=19, cex=0.5)#
+arrows(exp2,2,obs2,1, length=0.1, col=alpha("black",0.3))#
+#
+par(mar=c(ySpace,xSpace,0,1))#
+# barplot(obs2Counts,  xlim=c(0,Xmax)+0.5, ylim=rev(c(0,n)), space=0,xlab="Provisioning Rate")#
+plot(obs2Counts_tab,  xlim=c(0,Xmax), ylim=rev(c(0,n/4)), bty="n", las=1, xaxt="n", ylab="Frequency",xlab="Provisioning Rate")#
+axis(1,0:Xmax, las=1)#
+dev.off()
+library(latex2exp) # enable to use LaTex in R expression
+rm(list=ls())#
+#
+library(pbapply)#
+library(latex2exp) # enable to use LaTex in R expression#
+#
+run_sim <- FALSE#
+nSims <- 1000#
+sim_means <- seq(1,10,0.5)^2#
+sim_cvs <- seq(0.1,1,0.1)#
+est_cv <- function(mean,cv){#
+	N <- 100#
+	sd <- mean*cv#
+	meanLat <- log(mean)#
+	varLat <- log(1+sd^2/mean^2)#
+	lambda <- exp(rnorm(N,meanLat,sqrt(varLat)))#
+	visits <- rpois(N,lambda)#
+	est_cv <- sqrt(var(visits) - mean(visits))/mean(visits)#
+	return(est_cv)#
+}#
+if(run_sim){#
+	set.seed(25)#
+	out <- pblapply(sim_cvs, function(cv) sapply(sim_means, function(mean) replicate(nSims,est_cv(mean,cv))))#
+	out2 <- array(unlist(out), dim=c(nSims,length(sim_means),length(sim_cvs)))#
+	save(out2, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")#
+}else{#
+	load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")#
+}#
+#
+load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/extracted_lit_review.Rdata")#
+dim(out2)
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab=TeX("Proportion where $\\sigma_x>\\bar{x}$"))
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_figII.pdf", height=5, width=10)#
+#
+par(mfrow=c(1,2), mar=c(5,5,2,1), cex.lab=1.5, cex.axis=1.25)#
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab=TeX("Proportion where $\\sigma_x>\\bar{x}$"))#
+mtext("A",3, line=0, adj=0, cex=2)#
+#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab=TeX("Number where $\\sigma_x>\\bar{x}$"))#
+mtext("B",3, line=0, adj=0, cex=2)#
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2, cex=1.5)#
+#
+dev.off()
+mround <- function(x,base) base*round(x/base)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/figures")#
+setEPS()#
+pdf("PR_figII.pdf", height=5, width=10)#
+#
+par(mfrow=c(1,2), mar=c(5,5,2,1), cex.lab=1.5, cex.axis=1.25)#
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab=TeX("Proportion where $\\sigma_x>\\bar{x}$"))#
+mtext("A",3, line=0, adj=0, cex=2)#
+#
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab=TeX("Number where $\\sigma_x>\\bar{x}$"))#
+mtext("B",3, line=0, adj=0, cex=2)#
+mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2, cex=1.5)#
+#
+dev.off()
+rm(list=ls())#
+#####
+#--- Functions#
+#####
+#
+pasteV <- function(x,sep=" ") do.call(paste,c(as.list(x),sep=sep))#
+#
+simpleCap <- function(x) {#
+  s <- strsplit(x, " ")[[1]]#
+  paste(toupper(substring(s, 1,1)), substring(s, 2),#
+      sep="", collapse=" ")#
+}#
+#
+remove_trailing_s <- function(x) ifelse(substring(x,nchar(x)) == "s", substr(x,1,nchar(x)-1), x)#
+#####
+#--- Import Data#
+#####
+#
+library(googlesheets)
+library(googlesheets)
+dat <- gs_title("1_Selected_Papers_To_Download_Colored_351")
+dat2 <- as.data.frame(gs_read(dat, ws = 1))
+names(dat2)
+library(googlesheets)#
+dat <- gs_title("1_Selected_Papers_To_Download_Colored_351")#
+dat2 <- as.data.frame(gs_read(dat, ws = 1))
+names(dat2)
+with(dat2, paste0(Search_Ref, ". "))
+with(dat2, paste0(Search_Ref, ". ", Authors))
+with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") "))
+names(dat2)
+with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", Title ))
+names(dat2)
+with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", Title, ". \\textit{", Journal, "}, ", Volume))
+names(dat2)
+dat2$Page_Start
+is.na(dat2$Page_Start)
+with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End)))
+with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", Title, ". \\textit{", Journal, "},  \\textbf{", Volume, ", ",with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End)))))
+with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", Title, ". \\textit{", Journal, "},  \\textbf{", Volume, ", ",with(dat2, ifelse(is.na(Page_Start), Article_Number, "}, ", paste0(Page_Start,"-",Page_End)))))
+with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", Title, ". \\textit{", Journal, "},  \\textbf{", Volume, "}, ", with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End)))))
+with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", Title, ". \\textit{", Journal, "},  \\textbf{", Volume, "}, ", with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End))), "\\n"))
+cat(with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", Title, ". \\textit{", Journal, "},  \\textbf{", Volume, "}, ", with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End))), "\\n"))#
+)
+cat(with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", Title, ". \\textit{", Journal, "},  \\textbf{", Volume, "}, ", with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End))), "\n")))
+firstup <- function(x) {#
+   substr(x, 1, 1) <- toupper(substr(x, 1, 1))#
+x#
+}
+dat2$Title
+dat2$Title[1]
+tolower(dat2$Title[1])
+firstup <- function(x) {#
+   substr(x, 1, 1) <- toupper(substr(x, 1, 1))#
+x#
+}
+firstup(dat2$Title[1])
+firstup <- function(x) {#
+	x <- tolower(x)#
+	substr(x, 1, 1) <- toupper(substr(x, 1, 1))#
+x#
+}
+firstup(dat2$Title[1])
+firstup(dat2$Title)
+simpleCap <- function(x) {#
+  s <- strsplit(x, " ")[[1]]#
+  paste(toupper(substring(s, 1,1)), substring(s, 2),#
+      sep="", collapse=" ")#
+}
+simpleCap(dat2$Journal)
+simpleCap(dat2$Journal[1])
+simpleCap <- function(x) {#
+	x <- tolower(x)#
+	s <- strsplit(x, " ")[[1]]#
+	paste(toupper(substring(s, 1,1)), substring(s, 2), sep="", collapse=" ")#
+}
+simpleCap(dat2$Journal[1])
+sapply(dat2$Journal, simpleCap)
+sapply(dat2$Journal[1], simpleCap)
+cat(with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", firstup(Title), ". \\textit{", sapply(dat2$Journal[1], simpleCap), "},  \\textbf{", Volume, "}, ", with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End))), "\n")))
+cat(with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", firstup(Title), ". \\textit{", sapply(dat2$Journal, simpleCap), "},  \\textbf{", Volume, "}, ", with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End))), "\n")))
+cat(with(dat2, paste0(Search_Ref, ". ", Authors, " (", Year, ") ", firstup(Title), ". \\textit{", sapply(dat2$Journal, simpleCap), "},  \\textbf{", Volume, "}, ", with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End))), ".\n")))
+strsplit(dat2$Authors[1])
+dat2$Authors[1]
+strsplit(dat2$Authors[1],";")
+strsplit(strsplit(dat2$Authors[1],";"),", ")
+strsplit(dat2$Authors[1],";")
+strsplit(strsplit(dat2$Authors[1],";")[[1]],", ")
+strsplit(strsplit(dat2$Authors[1],";")[[1]],", ")[2]
+(strsplit(strsplit(dat2$Authors[1],";")[[1]],", ")[[1]][2])
+strsplit("mmm")
+strsplit("mmm","")
+pasteV(strsplit("mmm","")[[1]],sep=".")
+strsplit(dat2$Authors[1],";")
+strsplit(dat2$Authors,";")
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	y <- strsplit(x,", ")#
+	ifelse(length(y)>1, y, pasteV(strsplit(y,"")[[1]],sep="."))#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	y <- strsplit(x,", ")#
+	y#ifelse(length(y)>1, y, pasteV(strsplit(y,"")[[1]],sep="."))#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	y <- strsplit(x,", ")#
+	ifelse(length(y)>1, pasteV(strsplit(y,"")[[1]],sep="."), y)#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	y <- strsplit(x,", ")#
+	ifelse(nchar(y)>1, pasteV(strsplit(y,"")[[1]],sep="."), y)#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	y <- strsplit(x,", ")#
+	ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2])#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	y <- strsplit(x,", ")[[1]]#
+	ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2])#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	y <- strsplit(x,", ")[[1]]#
+	paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	y <- strsplit(x,", ")[[1]]#
+	y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+	pasteV(y)#
+})
+pasteV(y,",")
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	y <- strsplit(x,", ")[[1]]#
+	y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+	pasteV(y,",")#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	y <- strsplit(x,", ")[[1]]#
+	y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+	pasteV(y,", ")#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	z <- sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+	ifelse(length(z)>1, pasteV(z[1:(length(z)-1)], ", "), z)#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	z <- sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+	ifelse(length(z)>1, pasteV(z[1:(length(z)-1)], sep=", "), z)#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	z <- sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+	ifelse(length(z)>1, paste(pasteV(z[1:(length(z)-1)], sep=", "),z[length(z)],sep=" \& "), z)#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	z <- sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+	ifelse(length(z)>1, paste(pasteV(z[1:(length(z)-1)], sep=", "),z[length(z)],sep=" \& "), z)#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	z <- sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+	ifelse(length(z)>1, paste(pasteV(z[1:(length(z)-1)], sep=", "),z[length(z)],sep=" \\& "), z)#
+})
+sapply(strsplit(dat2$Authors,";"), function(x){#
+	z <- sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+	ifelse(length(z)>1, paste(pasteV(z[1:(length(z)-1)], sep=","),z[length(z)],sep=" \\& "), z)#
+})
+dat2$Authors2 <- sapply(strsplit(dat2$Authors,";"), function(x){#
+	z <- sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+	ifelse(length(z)>1, paste(pasteV(z[1:(length(z)-1)], sep=","),z[length(z)],sep=" \\& "), z)#
+})
+dat2$Pages <- with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End)))
+cat(with(dat2, paste0(Search_Ref, ". ", Authors2, " (", Year, ") ", firstup(Title), ". \\textit{", sapply(dat2$Journal, simpleCap), "},  \\textbf{", Volume, "}, ", Pages, ".\n")))
+names(dat2)
+dat2 <- subset(as.data.frame(gs_read(dat, ws = 1)), Included==1)
+dat2$Authors2 <- sapply(strsplit(dat2$Authors,";"), function(x){#
+	z <- sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+	ifelse(length(z)>1, paste(pasteV(z[1:(length(z)-1)], sep=","),z[length(z)],sep=" \\& "), z)#
+})#
+#
+dat2$Pages <- with(dat2, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End)))#
+cat(with(dat2, paste0(Search_Ref, ". ", Authors2, " (", Year, ") ", firstup(Title), ". \\textit{", sapply(dat2$Journal, simpleCap), "},  \\textbf{", Volume, "}, ", Pages, ".\n")))
+refs <- with(dat2, paste0(Search_Ref, ". ", Authors2, " (", Year, ") ", firstup(Title), ". \\textit{", sapply(dat2$Journal, simpleCap), "},  \\textbf{", Volume, "}, ", Pages, ".\n"))
+refs
+write(refs, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/lit_review_refs.tex")
+substr(dat2$Title,nchar(dat2$Title))
+substring(dat2$Title,nchar(dat2$Title))
+ifelse(substring(dat2$Title,nchar(dat2$Title))=="?","",".")
+refs <- with(dat2, paste0(Search_Ref, ". ", Authors2, " (", Year, ") ", firstup(Title), ifelse(substring(dat2$Title,nchar(dat2$Title))=="?","","."), " \\textit{", sapply(dat2$Journal, simpleCap), "},  \\textbf{", Volume, "}, ", Pages, ".\n"))
+refs
+write(refs, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/lit_review_refs.tex")
+dat <- gs_title("1_Selected_Papers_To_Download_Colored_351")#
+dat <- subset(as.data.frame(gs_read(dat, ws = 1)), Included==1)#
+#write.csv(dat,file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/lit_review_data_new.csv",row.names=FALSE)#
+#
+#dat <- read.csv(file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/lit_review_data_new.csv",stringsAsFactors=FALSE)#
+names(dat)#
+nrow(dat)#
+dat$Authors2 <- sapply(strsplit(dat$Authors,";"), function(x){#
+	z <- sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+	ifelse(length(z)>1, paste(pasteV(z[1:(length(z)-1)], sep=","),z[length(z)],sep=" \\& "), z)#
+})#
+#
+dat$Pages <- with(dat, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End)))#
+#
+dat$Title#
+#
+refs <- with(dat, paste0(Search_Ref, ". ", Authors2, " (", Year, ") ", firstup(Title), ifelse(substring(dat$Title,nchar(dat$Title))=="?","","."), " \\textit{", sapply(dat$Journal, simpleCap), "},  \\textbf{", Volume, "}, ", Pages, ".\n"))#
+write(refs, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/lit_review_refs.tex")
+rm(list=ls())#
+#####
+#--- Functions#
+#####
+#
+pasteV <- function(x,sep=" ") do.call(paste,c(as.list(x),sep=sep))#
+#
+simpleCap <- function(x) {#
+	x <- tolower(x)#
+	s <- strsplit(x, " ")[[1]]#
+	paste(toupper(substring(s, 1,1)), substring(s, 2), sep="", collapse=" ")#
+}#
+#
+firstup <- function(x) {#
+	x <- tolower(x)#
+	substr(x, 1, 1) <- toupper(substr(x, 1, 1))#
+x#
+}#
+remove_trailing_s <- function(x) ifelse(substring(x,nchar(x)) == "s", substr(x,1,nchar(x)-1), x)#
+#####
+#--- Import Data#
+#####
+#
+library(googlesheets)#
+dat <- gs_title("1_Selected_Papers_To_Download_Colored_351")#
+dat <- subset(as.data.frame(gs_read(dat, ws = 1)), Included==1)#
+#write.csv(dat,file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/lit_review_data_new.csv",row.names=FALSE)#
+#
+#dat <- read.csv(file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/lit_review_data_new.csv",stringsAsFactors=FALSE)#
+names(dat)#
+nrow(dat)#
+dat$Authors2 <- sapply(strsplit(dat$Authors,";"), function(x){#
+	z <- sapply(strsplit(x,", "), function(y){#
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")#
+		pasteV(y,", ")	#
+	})#
+	ifelse(length(z)>1, paste(pasteV(z[1:(length(z)-1)], sep=","),z[length(z)],sep=" \\& "), z)#
+})#
+#
+dat$Pages <- with(dat, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End)))#
+refs <- with(dat, paste0(Search_Ref, ". ", Authors2, " (", Year, ") ", firstup(Title), ifelse(substring(dat$Title,nchar(dat$Title))=="?","","."), " \\textit{", sapply(dat$Journal, simpleCap), "},  \\textbf{", Volume, "}, ", Pages, ".\n"))#
+write(refs, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/lit_review_refs.tex")
+load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/summary_lit_review.Rdata")
+dat2$scientific_name
+load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/summary_lit_review.Rdata")
+dat2$scientific_name
+ls()
+load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/extracted_lit_review.Rdata")
+dat2$scientific_name
+dat2$scientific_name1
+na.omit(c(dat2$scientific_name1,dat2$scientific_name1))
+sapply(na.omit(c(dat2$scientific_name1,dat2$scientific_name1)), function(x) strsplit(x,"\ ")[1])
+sapply(na.omit(c(dat2$scientific_name1,dat2$scientific_name1)), function(x) strsplit(x,"\ ")[[1]][1])
+unique(sapply(na.omit(c(dat2$scientific_name1,dat2$scientific_name1)), function(x) strsplit(x,"\ ")[[1]][1]))
+genus_names <- unique(sapply(na.omit(c(dat2$scientific_name1,dat2$scientific_name1)), function(x) strsplit(x,"\ ")[[1]][1]))
+dat$Title[1]
+gsub(firstup(dat$Title[1]))
+firstup(dat$Title[1])
+sapply(genus_names, function(x) gsub(firstup(dat$Title[1])))
+sapply(genus_names, function(x) gsub(x, firstup(dat$Title[1])))
+sapply(genus_names, function(x) gsub(tolower(x), x, firstup(dat$Title[1])))
+sapply(genus_names, function(x) grep(tolower(x), x, firstup(dat$Title[1])))
+sapply(genus_names, function(x) grepl(tolower(x), x, firstup(dat$Title[1])))
+sapply(genus_names, function(x) grepl(tolower(x), firstup(dat$Title[1])))
+genus_names[sapply(genus_names, function(x) grepl(tolower(x), firstup(dat$Title[1])))]
+sapply(dat$Title, function(y){#
+	genus_name <- genus_names[sapply(genus_names, function(x) grepl(tolower(x), firstup(y)))]#
+	gsub(tolower(genus_name), genus_name, firstup(y)))]#
+#
+})
+sapply(dat$Title, function(y){#
+	genus_name <- genus_names[sapply(genus_names, function(x) grepl(tolower(x), firstup(y)))]#
+	gsub(tolower(genus_name), genus_name, firstup(y)))#
+#
+})
+sapply(dat$Title, function(y){#
+	genus_name <- genus_names[sapply(genus_names, function(x) grepl(tolower(x), firstup(y)))]#
+	gsub(tolower(genus_name), genus_name, firstup(y))#
+#
+})
+y <- dat$Title[[2]]
+y
+genus_name <- genus_names[sapply(genus_names, function(x) grepl(tolower(x), firstup(y)))]
+genus_name
+is.null(genus_name)
+is.empty(genus_name)
+length(genus_name)
+length(genus_name)==0
+sapply(dat$Title, function(y){#
+	genus_name <- genus_names[sapply(genus_names, function(x) grepl(tolower(x), firstup(y)))]#
+	if(length(genus_name)==1) gsub(tolower(genus_name), genus_name, firstup(y))#
+	else y#
+})
+sapply(dat$Title, function(y){#
+	genus_name <- genus_names[sapply(genus_names, function(x) grepl(tolower(x), firstup(y)))]#
+	if(length(genus_name)==1) gsub(tolower(genus_name), genus_name, firstup(y))#
+	else firstup(y)#
+})
+dat$Title2 <- sapply(dat$Title, function(y){#
+	genus_name <- genus_names[sapply(genus_names, function(x) grepl(tolower(x), firstup(y)))]#
+	if(length(genus_name)==1) gsub(tolower(genus_name), genus_name, firstup(y))#
+	else firstup(y)#
+})
+refs <- with(dat, paste0(Search_Ref, ". ", Authors2, " (", Year, ") ", Title2, ifelse(substring(dat$Title,nchar(dat$Title))=="?","","."), " \\textit{", sapply(dat$Journal, simpleCap), "},  \\textbf{", Volume, "}, ", Pages, ".\n"))#
+write(refs, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/lit_review_refs.tex")
