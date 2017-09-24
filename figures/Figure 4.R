@@ -19,7 +19,7 @@ propExpVar <- function(mean,cv){
 
 sym_dat <- na.omit(dat2[,c("new_mean","prop_w0","N_analysis","direct")])
 
-sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="Number of Analyses"){
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="No. Analyses"){
 	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))
 	y_coords <- y - (2:(length(legend)+1))^2*yspace
 	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)
@@ -42,7 +42,7 @@ layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))
 is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
 
 obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts
-barplot(obs2Counts[1:17], space=0, ylab="Number of estimates", xlab="")
+barplot(obs2Counts[1:17], space=0, ylab="Number of analyses", xlab="")
 
 abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")
 
@@ -77,7 +77,7 @@ plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"N
 
 par(mar=c(6,0,0,1))
 prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts
-barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of estimates")
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of analyses")
 abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")
 #axis(3,seq(min(prop2Counts),max(prop2Counts),1))
 }

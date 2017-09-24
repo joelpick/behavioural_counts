@@ -27,10 +27,10 @@ setEPS()
 pdf("PR_figII.pdf", height=5, width=10)
 
 par(mfrow=c(1,2), mar=c(5,5,2,1), cex.lab=1.5, cex.axis=1.25)
-plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab=TeX("Proportion where $\\sigma_x>\\bar{x}$"))
+plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab=TeX("Proportion where $\\sigma_x<\\bar{x}$"))
 mtext("A",3, line=0, adj=0, cex=2)
 
-plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab=TeX("Number where $\\sigma_x>\\bar{x}$"))
+plot(aggregate(is.nan(exp_cv)~mround(new_mean,1), dat2, sum), ylim=c(0,5), xlim=c(0,100), pch=19, xlab="", ylab=TeX("Number where $\\sigma_x<\\bar{x}$"))
 mtext("B",3, line=0, adj=0, cex=2)
 mtext("Mean number of Observed Visits",1, outer=TRUE, line=-2, cex=1.5)
 
