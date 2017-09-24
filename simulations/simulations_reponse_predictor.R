@@ -58,7 +58,7 @@ R2_response <- as.data.frame(t(pbsapply(datasets, function(data){
 	})))
 head(R2_response)
 
-#write.csv(R2_response,file="simulations/R2_response.csv",row.names=FALSE)
+write.csv(R2_response,file="simulations/R2_response.csv",row.names=FALSE)
 
 
 
@@ -88,7 +88,7 @@ R2_predictor <- as.data.frame(t(pbsapply(datasets, function(data){
 	return(c(mean=mean(data$visits), R2_lm=R2_LM, R2_mem=mean(R2_stan)))
 })))
 
-#write.csv(R2_predictor,file="simulations/R2_predictor.csv",row.names=FALSE)
+write.csv(R2_predictor,file="simulations/R2_predictor.csv",row.names=FALSE)
 
 
 

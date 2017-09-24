@@ -4,52 +4,24 @@ setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")
 
 library(pbapply)
 library(latex2exp) # enable to use LaTex in R expression
+library(fields)
 
-run_sim <- FALSE
+set.seed(25)
 nSims <- 1000
 sim_means <- seq(1,10,0.5)^2
 sim_cvs <- seq(0.1,1,0.1)
 
-
-est_cv <- function(mean,cv){
-	N <- 100
-	sd <- mean*cv
-	meanLat <- log(mean)
-	varLat <- log(1+sd^2/mean^2)
-	lambda <- exp(rnorm(N,meanLat,sqrt(varLat)))
-	visits <- rpois(N,lambda)
-	
-	est_cv <- sqrt(var(visits) - mean(visits))/mean(visits)
-	return(est_cv)
-}
-
-
-if(run_sim){
-	set.seed(25)
-	out <- pblapply(sim_cvs, function(cv) sapply(sim_means, function(mean) replicate(nSims,est_cv(mean,cv))))
-	out2 <- array(unlist(out), dim=c(nSims,length(sim_means),length(sim_cvs)))
-	save(out2, file="~/Dropbox/0_postdoc/8_PR repeat/shared/figures/expCV_bias_precision.Rdata")
-}else{
-	load("simulations/expCV_bias_precision.Rdata")
-}
+load("simulations/expCV_bias_precision.Rdata")
+out2 <- array(unlist(out_cv), dim=c(nSims,length(sim_means),length(sim_cvs)))
+dim(out2)
 
 load("lit_review/extracted_lit_review.Rdata")
 
-
-dim(out2)
-
-
- 
- apply(out2,c(2,3),mean, na.rm=TRUE)
-
- apply(out2,c(2,3),function(x) sum(is.nan(x)))
- apply(out2,c(2),function(x) sum(is.nan(x)))/(10*1000)
-
+apply(out2,c(2,3),function(x) sum(is.nan(x)))
+apply(out2,c(2),function(x) sum(is.nan(x)))/(10*1000)
+image.plot(x=sim_means, y= sim_cvs, z=apply(out2,c(2,3),function(x)sum(is.nan(x)))/1000, main="NaNs", col=rev(heat.colors(20)))
 
 mround <- function(x,base) base*round(x/base) 
-image.plot(x=sim_means, y= sim_cvs, z=apply(out2,c(2,3),function(x)sum(is.nan(x)))/1000, main="NaNs", col=rev(heat.colors(20)))
-# 
-
 
 setEPS()
 pdf("PR_figII.pdf", height=5, width=10)
