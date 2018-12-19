@@ -1,5 +1,5 @@
 # BE_Counts
-Code for Behavioural Ecology Invited Review
+Code for Biological Reviews MS
 
 simulations contains code for simulations 
 
