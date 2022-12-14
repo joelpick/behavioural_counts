@@ -1,0 +1,31 @@
+study_ref,N_Predictor,N_Response,methods,variable,variable_cat,error_distribution
+2022_3,0,1,LMM,visits/hour,rate,Gaussian
+2022_4,0,2,LMM,visits/hour,rate,Gaussian
+2022_5,0,2,LMM,visits/hour,rate,Gaussian
+2022_6,0,1,LMM,visits,number,Gaussian
+2022_7,4,5,LMM,visits/30mins,rate,Gaussian
+2022_10,0,1,GLMM,visits,number,zero-inflated negative binomial
+2022_11,0,1,LMM,visits/hour,rate,Gaussian
+2022_12,1,0,NA,NA,NA,NA
+2022_13,6,1,LM,visits/hour,rate,Gaussian
+2022_15,0,3,LMM,visits/hour,rate,Gaussian
+2022_19,0,2,GLM,visits,number,Poisson
+2022_24,4,4,LMM,visits/hour,rate,Gaussian
+2022_29,0,1,GLMM,visits,number,Poisson
+2022_30,0,1,LMM,visits,number,Gaussian
+2022_30,0,1,LMM,visits/hour/chick,rate,Gaussian
+2022_34,2,2,GLM,visits/hour,rate,Gamma
+2022_44,0,3,GLMM,visits,number,COM poisson
+2022_49,4,4,GAM,visits,number,Gaussian
+2022_60,0,1,LMM,visits,number,Gaussian
+2022_66,6,0,NA,NA,NA,NA
+2022_70,0,1,GLMM,visits,number,negative binomial
+2022_74,0,1,LMM,visits,number,Gaussian
+2022_86,0,3,LM,visits/hour/chick,rate,Gaussian
+2022_92,0,2,GLMM,visits/hour,rate,Tweedie
+2022_96,0,1,GLMM,visits,number,Poisson
+2022_98,0,1,LM,visits/hour,rate,Gaussian
+2022_106,0,2,GLMM,visits,number,Poisson
+2022_133,2,1,LMM,visits,number,Gaussian
+2022_136,0,1,LMM,visits/hour,rate,Gaussian
+2022_144,0,1,LMM,visits/hour/chick,rate,Gaussian
