@@ -1,80 +1,76 @@
 rm(list=ls())
 
-setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")
+options(width=Sys.getenv("COLUMNS"))
 
-library(scales)
-set.seed(3)
+arrivals <- function(obsTime=90, beta=0.281, alpha=1.08){
+	visits <- rgamma(1000, rate=beta, shape=alpha)
+	csVisits <- cumsum(visits)
+	return(csVisits[csVisits<obsTime])
+	}
 
-n <- 200
-mean <- 20
-sd <- 8
-exp1 <- rep(mean,n)
-obs1 <- rpois(n, exp1)
-exp2 <- rlnorm(n, meanlog = log(mean), sdlog = sqrt(log(1+sd/mean^2)))
-obs2 <- rpois(n, exp2)
-Xmax <- max(c(obs1,obs2))
 
-exp1Counts = hist(exp1, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts
-obs1Counts = hist(obs1, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts
-obs1Counts_tab = table(obs1)
-exp2Counts = hist(exp2, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts
-obs2Counts = hist(obs2, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts
-obs2Counts_tab = table(obs2)
+setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials/figures")
 
-xSpace <- ySpace <- 5
+setEPS()
+pdf("PR_fig1.pdf", height=5, width=12)
+
+set.seed(56)
+obsTime <- 180
+
+# layout(matrix(1:2, nrow=2),height=c(1,3))
+# par(mar=c(2,6,2,2), cex.lab=2, cex.axis=1.5)
+# plot(NA, ylim=c(0.5,1.5), xlim=c(0,obsTime), ylab="Nest observation", xlab="Time (mins)", bty="n", yaxt="n", xaxt="n")
+
+
+par(mar=c(6,6,2,2), cex.lab=2, cex.axis=1.5)
+plot(NA, ylim=c(0.5,7.5), xlim=c(0,obsTime), ylab="Nest observation", xlab="Time (mins)", bty="n", yaxt="n", xaxt="n")
+axis(2,1:6, 6:1, tick=FALSE, las=2)
+axis(1,seq(0,obsTime,length.out=7), seq(0,obsTime,length.out=7))
+
+abline(h=1:6,col="grey")
+
+for(i in seq(0,obsTime,length.out=7)) lines(x=rep(i,2),y=c(0.25,6.5), lty=2, col="red")
+
+aa <- lapply(1:6, function(i){
+	x <- arrivals(obsTime, 0.075, 1)
+	points(rep(i, length(x))~x, pch=19)
+	return(x)
+})
+arrows(aa[[6]][5],6.5,aa[[6]][6],6.5, code=3, length=0.05)
+text(mean(aa[[6]][5:6]),7,"Interval", cex=1.5)
+
+legend("topleft", legend="Arrival", pch=19, bty="n", cex=1.5)
+
+
+dev.off()
 
 
 
 
 setEPS()
-pdf("figures/PR_fig1.pdf", height=10, width=10)
+pdf("PR_fig1a.pdf", height=3.5, width=8)
 
-layout(matrix(c(1:12), ncol=3, byrow=FALSE),heights=c(1,2,4,2)/10, widths=c(2,4,4)/10)
-
-par(mar=c(0,0,0,0), cex.lab=1.5)
-plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
-plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
-text(0.5,0.05, "Expected", cex=3)
-plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
-plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
-text(0.5,0.95, "Observed", cex=3)
+set.seed(556)
+obsTime <- 180
 
 
-plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
-text(0.5,0.5, "A) No variation in \n expected PR", cex=2.5)
+par(mar=c(6,2,2,2), cex.lab=1.75, cex.axis=1.5)
+plot(NA, ylim=c(0.5,2), xlim=c(0,obsTime), ylab="", xlab="Time (mins)", bty="n", yaxt="n", xaxt="n")
+# axis(2,1:6, 6:1, tick=FALSE, las=2)
+axis(1,seq(0,obsTime,length.out=7), seq(0,obsTime,length.out=7))
 
-par(mar=c(0,xSpace,0,1), las=2)
-barplot(exp1Counts, xlim=c(0,Xmax)+0.5, ylim=c(0,n), space=0, ylab="Frequency")
+abline(h=1,col="grey")
 
-par(mar=c(0,xSpace,0,1))
-plot(rep(2,n)~exp1, xlim=c(0,Xmax), pch=19, cex=0.75, ylim=c(0.9,2.1), yaxt="n", xaxt="n", bty="n", ylab="")
-#axis(2,c(1,2),c("Observed","Expected"), tick=FALSE, cex.axis=2)
-points(rep(1,n)~obs1, pch=19, cex=0.5)
-arrows(exp1,2,obs1,1, length=0.1, col=alpha("black",0.3))
+for(i in seq(0,obsTime,length.out=7)) lines(x=rep(i,2),y=c(0.25,1.4), lty=2, col="red")
+x <- arrivals(obsTime, 0.075, 1)
+points(rep(1, length(x))~x, pch=19)
 
-par(mar=c(ySpace,xSpace,0,1))
-# barplot(obs1Counts,  xlim=c(0,Xmax)+0.5, ylim=rev(c(0,n)), space=0,xlab="Provisioning Rate")
-plot(obs1Counts_tab,  xlim=c(0,Xmax), ylim=rev(c(0,n/4)), bty="n", las=1, xaxt="n", ylab="Frequency",xlab="Provisioning Rate")
-axis(1,0:Xmax, las=1)
+arrows(x[7],1.5,x[8],1.5, code=3, length=0.05)
+text(mean(x[7:8]),1.7,"Interval", cex=1.5)
 
-
-par(mar=c(0,0,0,0))
-plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
-text(0.5,0.5, "B) Variation in \n expected PR", cex=2.5)
-
-par(mar=c(0,xSpace,0,1), las=2)
-barplot(exp2Counts, xlim=c(0,Xmax)+0.5, ylim=c(0,n), space=0, ylab="Frequency")
-
-par(mar=c(0,xSpace,0,1))
-plot(rep(2,n)~exp2, xlim=c(0,Xmax), pch=19, cex=0.75, ylim=c(0.9,2.1), yaxt="n", xaxt="n", bty="n", ylab="")
-#axis(2,c(1,2),c("Observed","Expected"), tick=FALSE, cex.axis=2)
-points(rep(1,n)~obs2, pch=19, cex=0.5)
-arrows(exp2,2,obs2,1, length=0.1, col=alpha("black",0.3))
-
-par(mar=c(ySpace,xSpace,0,1))
-# barplot(obs2Counts,  xlim=c(0,Xmax)+0.5, ylim=rev(c(0,n)), space=0,xlab="Provisioning Rate")
-plot(obs2Counts_tab,  xlim=c(0,Xmax), ylim=rev(c(0,n/4)), bty="n", las=1, xaxt="n", ylab="Frequency",xlab="Provisioning Rate")
-axis(1,0:Xmax, las=1)
+legend("topleft", legend="Arrival", pch=19, bty="n", cex=1.5)
 
 
 dev.off()
+
+

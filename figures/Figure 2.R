@@ -1,88 +1,89 @@
-## install.packages("latex2exp")
-
 rm(list=ls())
 
 setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")
 
-library(latex2exp) # enable to use LaTex in R expression
-means <- 1:100				# range of mean visits over which which to plot
-cvs <- seq(0.1,0.5,0.1)
+library(scales)
+set.seed(56)
 
-CV_dat <- read.csv(file="lendvai_data/lendvai_CV.csv")
-est_cv <- coef(nls(cv ~ sqrt((a*mean)^2 + mean)/mean, data=CV_dat, start=c(a=0.4)))
-pois_cv <- sqrt((means*est_cv)^2 + means)/means
+n <- 200
+mean <- 20
+sd <- 10
+exp1 <- rep(mean,n)
+obs1 <- rpois(n, exp1)
+exp2 <- rlnorm(n, meanlog = log(mean), sdlog = sqrt(log(1+sd/mean^2)))
+obs2 <- rpois(n, exp2)
+Xmax <- max(c(obs1,obs2))
 
-ICC_dat <- read.csv(file="lendvai_data/lendvai_ICC.csv")
-gaus_rep <- coef(nls ( ICC ~ a*mean*est_cv^2 / (1+mean*est_cv^2), data=ICC_dat, start=list(a=0.5) ))
+exp1Counts = hist(exp1, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts
+obs1Counts = hist(obs1, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts
+obs1Counts_tab = table(obs1)
+exp2Counts = hist(exp2, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts
+obs2Counts = hist(obs2, plot=FALSE, breaks=seq(-0.5,Xmax+0.5,1))$counts
+obs2Counts_tab = table(obs2)
+
+xSpace <- ySpace <- 5
+
+
 
 
 setEPS()
-pdf("figure/PR_fig2.pdf", height=10, width=10)
+pdf("figures/PR_fig2.pdf", height=10, width=10)
 
-par(mfrow=c(2,2), mar=c(3,6,3,1), cex.lab=1.75, cex.axis=1.2,oma = c(3, 0, 0, 0))
+layout(matrix(c(1:15), ncol=3, byrow=FALSE),heights=c(1,2,3,2,1)/11, widths=c(2,4,4)/10)
 
-
-######------------------------------------------------------------
-
-
-plot(NA, ylim=c(0,1), xlim=c(0,100), ylab="Observed CV", xlab="")
-lapply(cvs, function(y) {
-	lines( (sqrt((means*y)^2 + means)/means)~means, col=y*10+1, lwd=2) 
-	lines(rep(y,each=length(means))~means, col=y*10+1, lty=2)
-	})
-legend("topright", c("Observed", "Expected"), lty=c(1,2), lwd=c(2,1), cex=1.2)
-mtext('A',side=3, line=0.5, cex=1.5, adj=0)
+par(mar=c(0,0,0,0), cex.lab=1.5)
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
+text(0.5,0.05, "Expected", cex=3)
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
+text(0.5,0.95, "Observed", cex=3)
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
 
 
-######------------------------------------------------------------
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
+text(0.5,0.5, "A) No variation in \n arrival rate", cex=2.5)
+
+par(mar=c(0,xSpace,0,1), las=2)
+barplot(exp1Counts, xlim=c(0,Xmax)+0.5, ylim=c(0,n), space=0, ylab="Frequency")
+
+par(mar=c(0,xSpace,0,1))
+plot(rep(2,n)~exp1, xlim=c(0,Xmax), pch=19, cex=0.75, ylim=c(0.9,2.1), yaxt="n", xaxt="n", bty="n", ylab="")
+#axis(2,c(1,2),c("Observed","Expected"), tick=FALSE, cex.axis=2)
+points(rep(1,n)~obs1, pch=19, cex=0.5)
+arrows(exp1,2,obs1,1, length=0.1, col=alpha("black",0.3))
+
+par(mar=c(ySpace,xSpace,0,1))
+# barplot(obs1Counts,  xlim=c(0,Xmax)+0.5, ylim=rev(c(0,n)), space=0,xlab="Provisioning Rate")
+plot(obs1Counts_tab,  xlim=c(0,Xmax), ylim=rev(c(0,n/6)), bty="n", las=1, xaxt="n", ylab="Frequency",xlab="Number of arrivals")
+axis(1,0:Xmax, las=1)
+
+par(mar=c(0,0,0,0), cex.lab=1.5)
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
+text(0.5,0.5, "Poisson", cex=2.5)
 
 
-plot(cv~mean, CV_dat, pch=19, ylim=c(0,1), xlab="", ylab="Observed CV")
-lines(pois_cv~means, col="red")
-abline(h=est_cv, lty=2)
-text(50,0.95, paste("Estimated expected CV =", round(est_cv,3)), cex=1.5)
-mtext('B',side=3, line=0.5, cex=1.5, adj=0)
 
+par(mar=c(0,0,0,0))
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
+text(0.5,0.5, "B) Variation in \n arrival rate", cex=2.5)
 
-######------------------------------------------------------------
+par(mar=c(0,xSpace,0,1), las=2)
+barplot(exp2Counts, xlim=c(0,Xmax)+0.5, ylim=c(0,n), space=0, ylab="Frequency")
 
+par(mar=c(0,xSpace,0,1))
+plot(rep(2,n)~exp2, xlim=c(0,Xmax), pch=19, cex=0.75, ylim=c(0.9,2.1), yaxt="n", xaxt="n", bty="n", ylab="")
+#axis(2,c(1,2),c("Observed","Expected"), tick=FALSE, cex.axis=2)
+points(rep(1,n)~obs2, pch=19, cex=0.5)
+arrows(exp2,2,obs2,1, length=0.1, col=alpha("black",0.3))
 
-plot(NA, ylim=c(0,1), ylab="Proportion of observed variance due\nto expected variation in provisioning rates", xlim=c(0,100), xlab="")
+par(mar=c(ySpace,xSpace,0,1))
+# barplot(obs2Counts,  xlim=c(0,Xmax)+0.5, ylim=rev(c(0,n)), space=0,xlab="Provisioning Rate")
+plot(obs2Counts_tab,  xlim=c(0,Xmax), ylim=rev(c(0,n/6)), bty="n", las=1, xaxt="n", ylab="Frequency",xlab="Number of arrivals")
+axis(1,0:Xmax, las=1)
 
-# plot line for each CV on expected scale 
-lapply(cvs, function(x) {			
-	exVar <- (means*x)^2 		# Intrinsic variance in provisioning rate
-	obsVar <- means+exVar			# Observed variance in provisioning rate 
-									# = intrinsic variance + poisson variance (mean)
-
-	lines(exVar/obsVar~means, lty=x*10+1, lwd=2)		# add lines
-})
-
-legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2)
-
-mtext('C',side=3, line=0.5, cex=1.5, adj=0)
-
-
-######------------------------------------------------------------
-
-
-plot(ICC~mean,ICC_dat, ylim=c(0,1), pch=19, xlab="")
-#points(ICC_pois~mean,ICC_dat, pch=19, col="red")
-lines(gaus_rep * (means*est_cv)^2 / (means + (means*est_cv)^2 ) ~ means, col="red")
-abline(h=gaus_rep, lty=2)
-text(25,0.95, paste("Estimated ICC =", round(gaus_rep,3)), cex=1.5)
-mtext('D',side=3, line=0.5, cex=1.5, adj=0)
-
-
-mtext("Mean number of observed visits",line=0.5,side=1,outer=TRUE, cex=1.75)
-
+par(mar=c(0,0,0,0), cex.lab=1.5)
+plot(NA, yaxt="n", xaxt="n", bty="n", ylab="", xlab="")
+text(0.5,0.5, "Overdispersed Poisson", cex=2.5)
 
 dev.off()
-
-
-
-#pois_rep <- mean(res$ICC_pois)
-#lines((exVar/obsVar)*pois_rep~means, lty=2)	
-#abline(h=pois_rep)
-
-#abline(lm(ICC_pois~mean,res))

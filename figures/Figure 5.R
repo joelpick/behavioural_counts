@@ -1,66 +1,97 @@
 rm(list=ls())
 
-library(fields)
-library(latex2exp) # enable to use LaTex in R expression
-
 setwd("~/Dropbox/0_postdoc/8_PR repeat/shared/online materials")
 
-R2_response <- read.csv(file="simulations/R2_response.csv")
-R2_predictor <- read.csv(file="simulations/R2_predictor.csv")
+load("lit_review/extracted_lit_review.Rdata")
 
-load(file="simulations/R2_pois_est.Rdata")
+library(scales)
+
+obsN_rep <- rep(dat2$new_mean, dat2$N_analysis)
+exp_cv_rep <- rep(dat2$exp_cv, dat2$N_analysis)
+obs_prop <- rep(dat2$prop_w0, dat2$N_analysis)
+
+propExpVar <- function(mean,cv){
+	exVar <- (mean*cv)^2
+	obsVar <- mean+exVar
+	return(exVar/obsVar)
+}
+
+
+sym_dat <- na.omit(dat2[,c("new_mean","prop_w0","N_analysis","direct")])
+
+sym_legend <- function(x,y, legend, yspace=0.07, area=legend, inches=0.25, bg=alpha(1,0.5),title="No. Analyses"){
+	#y_coords <- seq(from=y, by=-1*yspace, length.out=length(legend))
+	y_coords <- y - (2:(length(legend)+1))^2*yspace
+	symbols(rep(x,length(legend)),y_coords, circles=sqrt(area/pi), inches=inches, bg=bg,add=TRUE)
+	text(rep(x+10,length(legend)),y_coords, legend)
+	text(x+5,y+yspace, title, cex=1.25)
+} 
+
 
 setEPS()
-pdf("figures/PR_fig5.pdf", height=10, width=12)
+pdf("figures/PR_fig5.pdf", height=10, width=10)
 
-layout(matrix(c(1,1,2,2,3:6), nrow=2, byrow=TRUE), width=c(1,5,5,1))
+###################------------------------------------------------------------
+{
+par(mar=c(0,6,1,0), cex.lab=1.5, oma=c(0,0,0,0))
+layout(mat=matrix(1:4, ncol=2), heights=c(3,10), widths=c(10,3))
 
-par(mar=c(2,5,3,1), cex.lab=1.75, cex.axis=1.4,oma = c(4, 0, 0, 0))
+#Ncounts <- hist(obsN, breaks=20, col="grey", main="", ylab="Number of Estimates", xlab="Mean number of observed visits", xlim=c(0,140), xaxt="n")$counts;abline(v=median(obsN, na.rm=TRUE), col="red")
+#axis(4,seq(5,max(Ncounts),5))#, yaxt="n"
 
-mean_obs <- 1:100
-plot(R2_lm~mean,R2_response,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))
-points(R2_pois~mean,R2_response,ylim=c(0,1),col="red",pch=19)
-abline(h=0.5)
-lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)
-mtext('A',side=3, line=0.5, cex=1.5, adj=0)
+is.wholenumber <- function(x, tol = .Machine$double.eps^0.5)  abs(x - round(x)) < tol
 
-plot(R2_lm~mean,R2_predictor,ylim=c(0,1),col="black",pch=19, xlab="", ylab=TeX("$R^2$"))
-points(R2_mem~mean,R2_predictor,ylim=c(0,1),col="red",pch=19)
-abline(h=0.5)
-lines(0.5*(mean_obs*0.3^2)/(mean_obs*0.3^2+1)~mean_obs, lty=2)
-mtext('B',side=3, line=0.5, cex=1.5, adj=0)
+obs2Counts <- hist(obsN_rep, plot=FALSE, breaks=seq(0,ifelse(is.wholenumber(max(obsN_rep,na.rm=TRUE)/10), max(obsN_rep,na.rm=TRUE), max(obsN_rep,na.rm=TRUE)+10),10))$counts
+barplot(obs2Counts[1:17], space=0, ylab="Number of analyses", xlab="")
+
+abline(v=median(obsN_rep, na.rm=TRUE)/10, col="blue")
 
 
+###################------------------------------------------------------------
 
-nSims <- 1000
-sim_means <- seq(1,10,0.5)^2
-sim_cvs <- seq(0.1,1,0.1)
-
-out_R2_2 <- array(unlist(out_R2), dim=c(nSims,length(sim_means),length(sim_cvs)))
-bias_R2 <- apply(out_R2_2,c(2,3),mean, na.rm=TRUE) - 0.5
-precision_R2 <- 1/apply(out_R2_2,c(2,3),sd, na.rm=TRUE)
+par(mar=c(6,6,0,0))
 
 
-par(mar=c(3,6,4,1))
-image(x=1, y= seq(min(bias_R2),max(bias_R2),0.01), z=matrix(seq(min(bias_R2),max(bias_R2),0.01),nrow=1), ylab=TeX("$E(\\hat{\\theta}) - \\theta$"), xlab="", xaxt="n", col=tim.colors())
-mtext('C',side=3, line=0.5, cex=1.5, adj=0)
+plot(NA,ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto variation in expected provisioning rates", xlab="Mean number of observed visits")
+#symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], ylim=c(0,1), xlim=c(0,170), ylab="Proportion of observed variance due\nto variation in expected provisioning rates", xlab="Mean number of observed visits")
 
-par(mar=c(3,1,4,5))
-image(x=sim_means, y= sim_cvs, z=bias_R2, ylab="", xlab="", yaxt="n", col=tim.colors())
-axis(4)
+means <- 1:170				# range of mean visits over which which to plot
+cvs <- seq(0.1,1,0.2)		# coefficents of variation of expected provisioning rates 
 
-par(mar=c(3,5,4,1))
-image(x=sim_means, y= sim_cvs, z=precision_R2, ylab="", xlab="", col=tim.colors())
-mtext("Expected CV", side=2, line=4.5, cex=1.5)
-mtext('D',side=3, line=0.5, cex=1.5, adj=0)
+# plot line for each CV on expected scale 
+em <- lapply(1:length(cvs), function(x) {			
+	y <- propExpVar(means,cvs[x])
+	lines(y~means, lty=x+1, lwd=1.5)		# add lines
+})
 
-par(mar=c(3,1,4,6))
-image(x=1, y= seq(min(precision_R2),max(precision_R2),0.01), z=matrix(seq(min(precision_R2),max(precision_R2),0.01),nrow=1), xaxt="n", yaxt="n", ylab=" ", xlab="", col=tim.colors())
-axis(4)
-mtext(TeX("$^1/_{\\sigma_{\\hat{\\theta}}}$"), side=4, line=4, cex=1.5)
+abline(v=median(obsN_rep, na.rm=TRUE), col="blue")
+abline(h=median(obs_prop,na.rm=TRUE),col="blue")
 
-mtext('Mean number of observed visits',side=1,outer=TRUE, line=2, cex=1.5)
+symbols(sym_dat$new_mean,sym_dat$prop_w0, circle= sqrt( (sym_dat$N_analysis)/pi ), inches=0.25, bg=alpha(c(2,1),0.5)[as.factor(sym_dat$direct)], add=TRUE)
+
+legend("bottomright", legend=cvs, lty=cvs*10+1, title="Expected CV", cex=1.2, bty="n")
+sym_legend(158, 0.52, c(1,2,4,8,16), yspace=0.0075, inches=0.2)
+
+###################------------------------------------------------------------
+
+par(mar=c(0,0,0,0))
+plot(NA, xlim=c(-1,1), ylim=c(-1,1), xaxt="n", yaxt="n", bty="n"); # text(0,0,"Number of Estimates")
+
+###################------------------------------------------------------------
+
+par(mar=c(6,0,0,1))
+prop2Counts <- hist(obs_prop, breaks=20, plot=FALSE)$counts
+barplot(prop2Counts, horiz=TRUE, space=0, ylab="", xlab="Number of analyses")
+abline(h=median(obs_prop*20,na.rm=TRUE),col="blue")
+#axis(3,seq(min(prop2Counts),max(prop2Counts),1))
+}
+
 
 
 dev.off()
- 
+
+
+
+
+
+

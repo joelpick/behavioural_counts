@@ -19,12 +19,12 @@ load("lit_review/extracted_lit_review.Rdata")
 
 apply(out2,c(2,3),function(x) sum(is.nan(x)))
 apply(out2,c(2),function(x) sum(is.nan(x)))/(10*1000)
-image.plot(x=sim_means, y= sim_cvs, z=apply(out2,c(2,3),function(x)sum(is.nan(x)))/1000, main="NaNs", col=rev(heat.colors(20)))
+#image.plot(x=sim_means, y= sim_cvs, z=apply(out2,c(2,3),function(x)sum(is.nan(x)))/1000, main="NaNs", col=rev(heat.colors(20)))
 
 mround <- function(x,base) base*round(x/base) 
 
 setEPS()
-pdf("PR_figII.pdf", height=5, width=10)
+pdf("figures/PR_figS3.pdf", height=5, width=10)
 
 par(mfrow=c(1,2), mar=c(5,5,2,1), cex.lab=1.5, cex.axis=1.25)
 plot( apply(out2,c(2),function(x) sum(is.nan(x)))/(length(sim_cvs)*nSims)~sim_means, ylim=c(0,0.20), pch=19, xlab="", ylab=TeX("Proportion where $\\sigma_x<\\bar{x}$"))

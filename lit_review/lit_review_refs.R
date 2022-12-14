@@ -45,7 +45,7 @@ dat$Authors2 <- sapply(strsplit(dat$Authors,";"), function(x){
 dat$Pages <- with(dat, ifelse(is.na(Page_Start), Article_Number, paste0(Page_Start,"-",Page_End)))
 
 
-load("~/Dropbox/0_postdoc/8_PR repeat/shared/figures/extracted_lit_review.Rdata")
+load("lit_review/extracted_lit_review.Rdata")
 genus_names <- unique(sapply(na.omit(c(dat2$scientific_name1,dat2$scientific_name1)), function(x) strsplit(x,"\ ")[[1]][1]))
 
 
@@ -65,4 +65,44 @@ dat$Title3 <- sapply(dat$Title2, function(y){
 
 refs <- with(dat, paste0(Search_Ref, ". ", Authors2, " (", Year, ") ", Title3, ifelse(substring(dat$Title,nchar(dat$Title))=="?","","."), " \\textit{", sapply(dat$Journal, simpleCap), "},  \\textbf{", Volume, "}, ", Pages, ".\n"))
 write(refs, file="lit_review/lit_review_refs.tex")
+
+
+
+
+
+
+
+
+
+
+
+
+dat2022 <- subset(read.csv(file="lit_review/lit_review_2022_all_papers.csv",stringsAsFactors=FALSE, na.strings = c("NA","")), Included==1)
+
+names(dat2022)
+nrow(dat2022)
+
+dat2022$Year<-2022
+dat2022$Authors2 <- sapply(strsplit(dat2022$Authors,";"), function(x){
+	z <- sapply(strsplit(x,", "), function(y){
+		y[2] <- paste0(ifelse(nchar(y[2])>1, pasteV(strsplit(y[2],"")[[1]],sep="."), y[2]),".")
+		pasteV(y,", ")	
+	})
+	ifelse(length(z)>1, paste(pasteV(z[1:(length(z)-1)], sep=","),z[length(z)],sep=" \\& "), z)
+})
+
+dat2022$Pages <- with(dat2022, 
+	ifelse(!is.na(Page_Start), paste0(", ",Page_Start,"-",Page_End),
+	ifelse(!is.na(Article_Number),paste0(", ",Article_Number),""))
+	)
+dat2022$Volume <- ifelse(!is.na(dat2022$Volume),paste0(",  \\textbf{", dat2022$Volume, "}"),"")
+dat2022$DOI_Link <- ifelse(!is.na(dat2022$DOI_Link),dat2022$DOI_Link,"")
+
+refs2022 <- with(dat2022, paste0(Search_Ref, ". ", Authors2, " (", Year, ") ", Title, ifelse(substring(dat2022$Title,nchar(dat2022$Title))=="?","","."), " \\textit{", sapply(dat2022$Journal, simpleCap), "}", Volume, Pages, ". ",DOI_Link,"\n"))
+refs2022
+write(refs2022, file="lit_review/lit_review_refs2022.tex")
+
+
+
+
 
